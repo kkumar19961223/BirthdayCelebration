@@ -28,7 +28,7 @@ function celebrate() {
 
 surpriseButton.addEventListener("click", () => {
   celebrate();
-  showToast("A little extra sparkle for your day, Kriti! ✨");
+  showToast("A little extra sparkle for your day, RICHA! ✨");
   document.getElementById("message").scrollIntoView({ behavior: "smooth" });
 });
 
