@@ -1,4 +1,4 @@
-# Happy Birthday, Kriti ✨
+# Happy Birthday✨
 
 A premium, cinematic, responsive birthday surprise website built with plain HTML, CSS and JavaScript. No framework or package installation is required.
 
