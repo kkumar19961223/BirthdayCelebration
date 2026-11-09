@@ -3,41 +3,75 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#090b18" />
-  <meta name="description" content="A little birthday surprise for RICHA." />
-  <title>Happy Birthday, RICHA ✨</title>
+  <meta name="theme-color" content="#fff0f4" />
+  <meta name="description" content="A little birthday surprise for Richa." />
+  <title>Happy Birthday, Richa ✨</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="grain" aria-hidden="true"></div>
-  <div class="ambient ambient-one" aria-hidden="true"></div>
-  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <div class="sky" aria-hidden="true">
+    <div class="cloud cloud-one"></div><div class="cloud cloud-two"></div>
+    <div class="hanging-balloons">
+      <span class="hang h1">🎈</span><span class="hang h2">🎈</span>
+      <span class="hang h3">🎈</span><span class="hang h4">🎈</span>
+      <span class="hang h5">🎈</span><span class="hang h6">🎈</span>
+      <span class="hang h7">🎈</span><span class="hang h8">🎈</span>
+      <span class="hang h9">🎈</span><span class="hang h10">🎈</span>
+      <span class="hang h11">🎈</span><span class="hang h12">🎈</span>
+    </div>
+    <div class="bottom-balloons" aria-hidden="true">
+      <span>🎈</span><span>🎈</span><span>🎈</span><span>🎈</span>
+      <span>🎈</span><span>🎈</span><span>🎈</span><span>🎈</span>
+      <span>🎈</span><span>🎈</span><span>🎈</span><span>🎈</span>
+    </div>
+    <div class="stars"></div>
+  </div>
 
-  <main class="page-shell">
+  <div class="envelope-screen" id="envelopeScreen">
+    <div class="intro-copy">
+      <span class="tiny-label">A LITTLE SOMETHING FOR YOU</span>
+      <h1>A birthday note<br><em>just for you</em></h1>
+      <p>There’s a little surprise waiting inside…</p>
+    </div>
+    <button class="envelope-button" id="openEnvelope" aria-label="Open your birthday envelope">
+      <span class="envelope-glow"></span>
+      <span class="letter">
+        <span class="letter-sparkle">✦</span>
+        <span class="letter-title">For Richa</span>
+        <span class="letter-subtitle">A little note, with warm wishes</span>
+      </span>
+      <span class="envelope-back"></span>
+      <span class="envelope-front"></span>
+      <span class="envelope-flap"></span>
+      <span class="seal">✦</span>
+    </button>
+    <p class="tap-hint"><span>✧</span> TAP THE ENVELOPE TO OPEN <span>✧</span></p>
+  </div>
+
+  <main class="page-shell hidden" id="birthdayPage">
     <nav class="topbar">
-      <a class="brand" href="#" aria-label="Birthday surprise home"><span class="brand-mark">✦</span> A LITTLE SURPRISE</a>
-      <span class="topbar-note">A day made brighter</span>
+      <a class="brand" href="#" aria-label="Birthday surprise home"><span>✦</span> A LITTLE SURPRISE</a>
+      <span class="topbar-note">A day made brighter ♡</span>
     </nav>
 
     <section class="hero" aria-labelledby="birthday-title">
-      <div class="eyebrow"><span class="eyebrow-line"></span> TODAY IS ALL ABOUT YOU <span class="eyebrow-line"></span></div>
-      <div class="sparkle sparkle-a">✧</div>
-      <div class="sparkle sparkle-b">✦</div>
-      <div class="sparkle sparkle-c">✧</div>
-
+      <div class="floating-decor decor-left">✧</div><div class="floating-decor decor-right">✦</div>
+      <div class="eyebrow"><span></span> TODAY IS ALL ABOUT YOU <span></span></div>
+      <div class="cake-wrap" aria-hidden="true">
+        <div class="cake-candles"><i></i><i></i><i></i></div>
+        <div class="cake"><div class="icing"></div><div class="cake-layer"></div><div class="cake-base"></div></div>
+        <div class="cake-plate"></div>
+      </div>
       <p class="pre-title">Wishing you a day as wonderful as</p>
-      <h1 id="birthday-title">RICHA<span class="title-period">.</span></h1>
+      <h1 id="birthday-title">RICHA<span>.</span></h1>
       <div class="birthday-rule"><span></span><i>✦</i><span></span></div>
-      <p class="hero-message">Happy Birthday</p>
+      <p class="hero-message">Wishing you a Happy Birthday Madamji!!!</p>
       <p class="hero-subtitle">May your next chapter be filled with beautiful moments,<br class="desktop-break"> unexpected adventures, and all the happiness you deserve.</p>
-
-      <button class="surprise-button" id="surpriseButton" type="button">
-        <span>Open your surprise</span><span class="button-arrow">↗</span>
-      </button>
-      <p class="scroll-hint"><span class="scroll-dot"></span> SCROLL TO DISCOVER</p>
+      <button class="surprise-button" id="surpriseButton" type="button">Read your birthday note <span>↗</span></button>
+      <p class="scroll-hint">♡ &nbsp; SCROLL TO DISCOVER</p>
     </section>
 
     <section class="message-section" id="message">
@@ -45,15 +79,8 @@
       <div class="message-card">
         <div class="quote-mark">“</div>
         <h2>Here’s to <em>you,</em><br>and everything ahead.</h2>
-        <p>
-          May you always find reasons to smile, courage to chase the things
-          that make your heart feel alive, and people who make every ordinary
-          day a little more special.
-        </p>
-        <p>
-          Keep shining in your own way, keep collecting moments worth
-          remembering, and never stop being wonderfully you.
-        </p>
+        <p>May you always find reasons to smile, courage to chase the things that make your heart feel alive, and people who make every ordinary day a little more special.</p>
+        <p>Keep shining in your own way, keep collecting moments worth remembering, and never stop being wonderfully you.</p>
         <div class="signature">With warmest wishes <span>✦</span></div>
       </div>
     </section>
@@ -61,21 +88,9 @@
     <section class="wishes-section">
       <div class="section-kicker">A FEW WISHES FOR YOUR NEW YEAR</div>
       <div class="wish-grid">
-        <article class="wish-card">
-          <span class="wish-icon">✧</span>
-          <h3>More joy</h3>
-          <p>For the little things that turn into your favourite memories.</p>
-        </article>
-        <article class="wish-card">
-          <span class="wish-icon">☾</span>
-          <h3>New adventures</h3>
-          <p>For places to explore, dreams to follow, and stories to tell.</p>
-        </article>
-        <article class="wish-card">
-          <span class="wish-icon">✦</span>
-          <h3>Endless growth</h3>
-          <p>For fresh beginnings, exciting possibilities, and quiet victories.</p>
-        </article>
+        <article class="wish-card"><span>✧</span><h3>More joy</h3><p>For the little things that turn into your favourite memories.</p></article>
+        <article class="wish-card"><span>☾</span><h3>New adventures</h3><p>For places to explore, dreams to follow, and stories to tell.</p></article>
+        <article class="wish-card"><span>✦</span><h3>Endless growth</h3><p>For fresh beginnings, exciting possibilities, and quiet victories.</p></article>
       </div>
     </section>
 
@@ -86,15 +101,11 @@
       <p>May this year be your most beautiful one yet.</p>
       <button class="replay-button" id="replayButton" type="button">Celebrate again <span>↗</span></button>
     </section>
-
-    <footer>
-      <span>MADE WITH GOOD WISHES</span>
-      <span>✦</span>
-      <span>FOR RICHA</span>
-    </footer>
+    <footer><span>MADE WITH GOOD WISHES</span><span>✦</span><span>FOR RICHA</span></footer>
   </main>
 
   <div class="toast" id="toast" role="status" aria-live="polite">A little extra sparkle for your day ✨</div>
+  <div class="fireworks" id="fireworks" aria-hidden="true"></div>
   <script src="script.js"></script>
 </body>
 </html>
