@@ -1,6 +1,8 @@
 const envelopeScreen = document.getElementById("envelopeScreen");
 const openEnvelope = document.getElementById("openEnvelope");
 const birthdayPage = document.getElementById("birthdayPage");
+const birthdayNoteScreen = document.getElementById("birthdayNoteScreen");
+const backToCelebration = document.getElementById("backToCelebration");
 const surpriseButton = document.getElementById("surpriseButton");
 const replayButton = document.getElementById("replayButton");
 const toast = document.getElementById("toast");
@@ -31,13 +33,16 @@ function launchConfetti() {
 
 function launchFireworks() {
   const colors = ["#e7a4bd", "#f1c878", "#c5a0d0", "#fff0b8"];
-  for (let burst = 0; burst < 10; burst++) {
+  const mobile = window.innerWidth < 600;
+  const burstCount = mobile ? 7 : 10;
+  const particlesPerBurst = mobile ? 18 : 28;
+  for (let burst = 0; burst < burstCount; burst++) {
     window.setTimeout(() => {
       const x = 12 + Math.random() * 76;
       const y = 12 + Math.random() * 55;
-      for (let i = 0; i < 28; i++) {
+      for (let i = 0; i < particlesPerBurst; i++) {
         const dot = document.createElement("i");
-        const angle = (Math.PI * 2 * i) / 22;
+        const angle = (Math.PI * 2 * i) / particlesPerBurst;
         const distance = 55 + Math.random() * 85;
         dot.className = "burst";
         dot.style.left = `${x}%`;
@@ -70,16 +75,22 @@ openEnvelope.addEventListener("click", () => {
       envelopeScreen.style.display = "none";
       birthdayPage.classList.remove("hidden");
       birthdayPage.classList.add("visible");
-      window.scrollTo({ top: 0, behavior: "instant" });
-      showToast("A little birthday magic, just for you, Richa! ✨");
+      window.scrollTo(0, 0);
     }, 650);
   }, 1050);
 });
 
 surpriseButton.addEventListener("click", () => {
   celebrate();
-  showToast("A little extra sparkle for your day, Richa! ✨");
-  document.getElementById("message").scrollIntoView({ behavior: "smooth" });
+  birthdayPage.classList.add("hidden");
+  birthdayNoteScreen.classList.remove("hidden");
+  window.scrollTo(0, 0);
+});
+
+backToCelebration.addEventListener("click", () => {
+  birthdayNoteScreen.classList.add("hidden");
+  birthdayPage.classList.remove("hidden");
+  window.scrollTo(0, 0);
 });
 
 replayButton.addEventListener("click", () => {
