@@ -536,3 +536,36 @@ button, .surprise-button { touch-action: manipulation; }
   .envelope-screen { justify-content: flex-start; }
   .hero { min-height: 600px; }
 }
+
+/* Keep the decorative backdrop visually steady on touch devices. */
+@media (max-width: 700px), (hover: none) and (pointer: coarse) {
+  .sky { isolation: isolate; }
+  .hang,
+  .stars,
+  .stars::after,
+  .bottom-balloons span,
+  .party-balloons span,
+  .night-sparkles span,
+  .note-stars span,
+  .smiley-stars span,
+  .diya-row span {
+    animation: none !important;
+  }
+  .hang { transform: none; }
+  .stars { opacity: .7; }
+  .stars::after { opacity: .8; }
+  .bottom-balloons span { translate: none; }
+  .bottom-balloons span:nth-child(2n),
+  .bottom-balloons span:nth-child(3n) { transform: none; }
+  .party-balloons span {
+    bottom: auto;
+    top: 17%;
+    opacity: .55;
+    transform: none;
+  }
+  .party-balloons span:nth-child(even) { top: 68%; }
+  .night-sparkles span,
+  .note-stars span,
+  .smiley-stars span { transform: none; }
+  .diya-row span { transform: none; }
+}
