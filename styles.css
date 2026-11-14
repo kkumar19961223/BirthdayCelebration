@@ -569,3 +569,47 @@ button, .surprise-button { touch-action: manipulation; }
   .smiley-stars span { transform: none; }
   .diya-row span { transform: none; }
 }
+
+/* Reduce clutter and sticky hover states on compact touch screens. */
+@media (max-width: 700px), (hover: none) and (pointer: coarse) {
+  .party-balloons,
+  .bottom-balloons { display: none; }
+  .hang { display: none; }
+  .h1, .h4, .h7 { display: block; }
+  .night-sparkles span { display: none; }
+  .night-sparkles span:nth-child(1),
+  .night-sparkles span:nth-child(3) { display: block; font-size: 30px; opacity: .5; }
+  .smiley-stars span { display: none; }
+  .smiley-stars span:nth-child(1),
+  .smiley-stars span:nth-child(7),
+  .smiley-stars span:nth-child(10),
+  .smiley-stars span:nth-child(18) { display: block; opacity: .2; font-size: 17px; }
+  .diya-row span:nth-child(n + 4) { display: none; }
+  .note-stars span:nth-child(n + 3) { display: none; }
+  .diya-row { bottom: max(5px, env(safe-area-inset-bottom)); }
+  .envelope-screen {
+    padding: max(28px, calc(28px + env(safe-area-inset-top))) 16px
+      max(24px, calc(24px + env(safe-area-inset-bottom)));
+  }
+  .intro-copy h1 { font-size: clamp(36px, 10vw, 50px); }
+  .envelope-button { width: min(300px, 80vw); height: 190px; }
+  .tap-hint {
+    max-width: calc(100vw - 32px);
+    padding: 10px 12px;
+    gap: 7px;
+    font-size: 12px;
+    letter-spacing: .08em;
+    line-height: 1.45;
+  }
+  .tap-hint span { flex: 0 0 auto; }
+  .hero { min-height: 620px; padding: 38px 2px 60px; }
+  .envelope-button:hover,
+  .envelope-button:focus-visible,
+  .wish-card:hover,
+  .surprise-button:hover,
+  .replay-button:hover {
+    transform: none;
+  }
+  .envelope-button:hover { filter: drop-shadow(0 0 16px #c99affaa) drop-shadow(0 22px 28px #040617cc); }
+  .surprise-button:hover, .replay-button:hover { background-position: 0 0; }
+}
