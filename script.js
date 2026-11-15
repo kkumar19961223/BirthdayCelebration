@@ -8,6 +8,28 @@ const replayButton = document.getElementById("replayButton");
 const toast = document.getElementById("toast");
 const fireworks = document.getElementById("fireworks");
 const birthdayMusic = document.getElementById("birthdayMusic");
+let resumeMusicOnReturn = false;
+
+function pauseMusicWhileAway() {
+  if (birthdayMusic.paused) return;
+  resumeMusicOnReturn = true;
+  birthdayMusic.pause();
+}
+
+function resumeMusicWhenBack() {
+  if (!resumeMusicOnReturn || document.visibilityState !== "visible") return;
+  resumeMusicOnReturn = false;
+  birthdayMusic.play().catch(() => {
+    // Some browsers require a fresh user gesture after extended backgrounding.
+  });
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) pauseMusicWhileAway();
+  else resumeMusicWhenBack();
+});
+window.addEventListener("blur", pauseMusicWhileAway);
+window.addEventListener("focus", resumeMusicWhenBack);
 
 function showToast(message) {
   toast.textContent = message;

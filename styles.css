@@ -351,10 +351,12 @@ footer { border-color: #c8a9ff30; color: #c5b2dc; }
 .always-smile {
   margin: 18px auto !important;
   color: #ffe28c !important;
-  font: 700 clamp(24px, 4vw, 38px)/1.2 "DM Sans", sans-serif !important;
+  font: 800 clamp(28px, 5vw, 46px)/1.18 "DM Sans", sans-serif !important;
   letter-spacing: .04em;
-  text-shadow: 0 0 12px #ffcc6966, 0 0 30px #ed96ff55;
+  text-shadow: 0 0 8px #fff8d9, 0 0 16px #ffcc69, 0 0 34px #ed96ff99;
+  animation: smileGlow 1.8s ease-in-out infinite alternate;
 }
+@keyframes smileGlow { to { text-shadow: 0 0 12px #fff, 0 0 24px #ffe27c, 0 0 48px #ff84c9; } }
 .fireworks { z-index: 14; }
 .burst { width: 6px; height: 6px; box-shadow: 0 0 10px currentColor, 0 0 22px currentColor; }
 @media (max-width: 700px) {
@@ -431,6 +433,10 @@ footer { border-color: #c8a9ff30; color: #c5b2dc; }
 .birthday-note-card h1 { color: #fff4e2; font: 500 clamp(42px, 8vw, 68px)/1.15 "Playfair Display", serif; margin: 12px 0 18px; }
 .birthday-note-card > p:not(.section-kicker) { color: #d4c6e3; font-size: 15px; line-height: 1.95; }
 .birthday-note-card .always-smile { margin: 26px 0 !important; }
+.birthday-note-card .smile-promise { margin: -12px 0 30px; color: #fff0be; font: 800 clamp(27px, 4.8vw, 44px)/1.22 "DM Sans", sans-serif; text-shadow: 0 0 8px #fff, 0 0 18px #ffdc70, 0 0 38px #ff8cccaa; }
+.smile-deco { display:inline-block; margin-inline:.12em; font-size:.82em; filter:drop-shadow(0 0 9px #ffe37b) drop-shadow(0 0 18px #ff7cc4); animation:smileBounce 1.5s ease-in-out infinite alternate; }
+.smile-deco:nth-child(even) { animation-delay:-.75s; }
+@keyframes smileBounce { to { transform:translateY(-5px) scale(1.1); } }
 .birthday-note-card .note-signoff { margin-top: 34px; color: #ffe29c; font-size: 13px; letter-spacing: .12em; line-height: 2; }
 .birthday-note-card .note-signoff strong { color: #fff0c9; font-size: clamp(18px, 3.8vw, 24px); font-weight: 800; text-shadow: 0 0 16px #ffce7a66; }
 .signoff-smiley { display:inline-block; margin-left:5px; font-size:1.55em; vertical-align:-.16em; filter:drop-shadow(0 0 10px #ffd778aa); }
@@ -577,4 +583,50 @@ button, .surprise-button { touch-action: manipulation; }
   .surprise-button:hover,
   .replay-button:hover { transform: none; }
   .surprise-button:hover, .replay-button:hover { background-position: 0 0; }
+}
+
+/* Fluid sizing for tablets, phones, and compact landscape screens. */
+@media (min-width: 701px) and (max-width: 1024px) {
+  .page-shell { width: calc(100% - 56px); }
+  .hero { min-height: clamp(610px, 82svh, 700px); }
+  .gift-trio { width: min(900px, 98vw); }
+  .message-card { padding-inline: clamp(28px, 6vw, 60px); }
+  .birthday-note-page { width: min(780px, calc(100% - 48px)); }
+}
+
+@media (max-width: 700px) {
+  .page-shell { width: calc(100% - 32px); }
+  .hero { min-height: clamp(560px, calc(100svh - 65px), 700px); }
+  .gift-trio { height: clamp(190px, 42vw, 235px); }
+  .gift-box { height: clamp(175px, 38vw, 220px); }
+  .gift-box-small { height: clamp(140px, 30vw, 175px); }
+  .birthday-note-page { width: min(780px, calc(100% - 32px)); }
+  .birthday-note-card { padding: clamp(28px, 7vw, 46px) clamp(20px, 6vw, 40px); }
+  .birthday-note-card .smile-promise { font-size: clamp(25px, 5.8vw, 38px); }
+  .closing-section { padding-block: clamp(58px, 12vw, 80px); }
+  .closing-section h2 { font-size: clamp(44px, 11vw, 68px); }
+}
+
+@media (max-width: 430px) {
+  .gift-trio { width: calc(100vw - 20px); }
+  .gift-box { flex-basis: 42%; width: 42%; margin-inline: -18px; }
+  .gift-box-small { flex-basis: 30%; width: 30%; }
+  .gift-body { left: 6%; right: 6%; }
+  .gift-lid { left: 2%; right: 2%; }
+  .cake-wrap { transform: scale(.92); transform-origin: center top; margin-bottom: -16px; }
+  .birthday-note-card .always-smile { font-size: clamp(25px, 7vw, 32px) !important; }
+  .birthday-note-card .smile-promise { font-size: clamp(24px, 6.5vw, 30px); }
+  .topbar { gap: 10px; }
+  .brand { white-space: nowrap; }
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  .envelope-screen { justify-content: flex-start; gap: 8px; padding-block: 18px; }
+  .intro-copy h1 { margin-block: 8px; font-size: clamp(32px, 7vh, 48px); }
+  .intro-copy p { margin-bottom: 6px; }
+  .gift-trio { flex: 0 0 auto; height: min(190px, 42vh); margin-top: 0; }
+  .gift-box { height: min(180px, 40vh); }
+  .gift-box-small { height: min(145px, 33vh); }
+  .tap-hint { margin-top: 4px; }
+  .hero { min-height: 0; padding-block: 28px 48px; }
 }
