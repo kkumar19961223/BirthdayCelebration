@@ -1,5 +1,5 @@
 const envelopeScreen = document.getElementById("envelopeScreen");
-const giftBoxes = document.querySelectorAll(".gift-box");
+const openEnvelope = document.getElementById("openEnvelope");
 const birthdayPage = document.getElementById("birthdayPage");
 const birthdayNoteScreen = document.getElementById("birthdayNoteScreen");
 const backToCelebration = document.getElementById("backToCelebration");
@@ -8,6 +8,7 @@ const replayButton = document.getElementById("replayButton");
 const toast = document.getElementById("toast");
 const fireworks = document.getElementById("fireworks");
 const birthdayMusic = document.getElementById("birthdayMusic");
+const giftRevealFlash = document.getElementById("giftRevealFlash");
 let resumeMusicOnReturn = false;
 
 function pauseMusicWhileAway() {
@@ -19,9 +20,16 @@ function pauseMusicWhileAway() {
 function resumeMusicWhenBack() {
   if (!resumeMusicOnReturn || document.visibilityState !== "visible") return;
   resumeMusicOnReturn = false;
-  birthdayMusic.play().catch(() => {
+  startBirthdayMusic().catch(() => {
     // Some browsers require a fresh user gesture after extended backgrounding.
   });
+}
+
+function startBirthdayMusic() {
+  if (!birthdayMusic.paused) return Promise.resolve();
+  birthdayMusic.muted = false;
+  birthdayMusic.volume = 1;
+  return birthdayMusic.play();
 }
 
 document.addEventListener("visibilitychange", () => {
@@ -39,7 +47,7 @@ function showToast(message) {
 
 function launchConfetti() {
   const colors = ["#f0a9c0", "#d9a6c5", "#f4cf8c", "#fff8f4", "#c99ab7", "#e88da9"];
-  const amount = window.innerWidth < 600 ? 75 : 130;
+  const amount = window.innerWidth < 600 ? 24 : window.innerWidth < 900 ? 60 : 130;
   for (let i = 0; i < amount; i++) {
     const piece = document.createElement("span");
     piece.className = "confetti";
@@ -56,9 +64,10 @@ function launchConfetti() {
 
 function launchFireworks() {
   const colors = ["#e7a4bd", "#f1c878", "#c5a0d0", "#fff0b8"];
-  const mobile = window.innerWidth < 600;
-  const burstCount = mobile ? 7 : 10;
-  const particlesPerBurst = mobile ? 18 : 28;
+  const mobile = window.innerWidth < 700;
+  const tablet = window.innerWidth < 1000;
+  const burstCount = mobile ? 4 : tablet ? 7 : 10;
+  const particlesPerBurst = mobile ? 12 : tablet ? 18 : 28;
   for (let burst = 0; burst < burstCount; burst++) {
     window.setTimeout(() => {
       const x = 12 + Math.random() * 76;
@@ -86,11 +95,14 @@ function celebrate() {
   launchFireworks();
 }
 
-giftBoxes.forEach((giftBox) => giftBox.addEventListener("click", () => {
-  if (giftBox.classList.contains("open")) return;
-  giftBox.classList.add("open");
-  // The gift box click is a user gesture, so browsers allow the music to start here.
-  birthdayMusic.play().catch(() => {});
+function openGift() {
+  if (openEnvelope.classList.contains("open")) return;
+  openEnvelope.classList.add("open");
+  giftRevealFlash.classList.remove("active");
+  void giftRevealFlash.offsetWidth;
+  giftRevealFlash.classList.add("active");
+  // Start audio directly from the user's gesture for mobile browser autoplay policies.
+  startBirthdayMusic().catch(() => {});
   celebrate();
   window.setTimeout(celebrate, 900);
   window.setTimeout(celebrate, 1900);
@@ -103,7 +115,12 @@ giftBoxes.forEach((giftBox) => giftBox.addEventListener("click", () => {
       window.scrollTo(0, 0);
     }, 650);
   }, 1050);
-}));
+}
+
+openEnvelope.addEventListener("pointerdown", () => {
+  startBirthdayMusic().catch(() => {});
+});
+openEnvelope.addEventListener("click", openGift);
 
 surpriseButton.addEventListener("click", () => {
   celebrate();

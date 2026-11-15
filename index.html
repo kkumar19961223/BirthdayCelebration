@@ -53,26 +53,16 @@
       <h1>A birthday note<br><em>just for you</em></h1>
       <p>There’s a little surprise waiting inside…</p>
     </div>
-    <div class="gift-trio" aria-label="Choose a birthday gift">
-      <span class="gift-arrow gift-arrow-left" aria-hidden="true">➜</span>
-      <span class="gift-arrow gift-arrow-right" aria-hidden="true">⬅</span>
-      <button class="gift-box gift-box-small gift-box-left" type="button" aria-label="Open the first birthday gift">
-        <span class="gift-glow" aria-hidden="true"></span><span class="gift-shadow" aria-hidden="true"></span>
-        <span class="gift-lid"><span class="ribbon-cross"></span><span class="bow-loop bow-left"></span><span class="bow-loop bow-right"></span><span class="bow-knot"></span><span class="bow-tail tail-left"></span><span class="bow-tail tail-right"></span></span>
-        <span class="gift-body"><span class="ribbon-cross"></span><span class="gift-star star-one">✦</span><span class="gift-star star-two">✧</span></span>
-      </button>
-      <button class="gift-box" id="openEnvelope" type="button" aria-label="Open your birthday gift">
-        <span class="gift-glow" aria-hidden="true"></span><span class="gift-shadow" aria-hidden="true"></span>
-        <span class="gift-lid"><span class="ribbon-cross"></span><span class="bow-loop bow-left"></span><span class="bow-loop bow-right"></span><span class="bow-knot"></span><span class="bow-tail tail-left"></span><span class="bow-tail tail-right"></span></span>
-        <span class="gift-body"><span class="ribbon-cross"></span><span class="gift-star star-one">✦</span><span class="gift-star star-two">✧</span><span class="gift-star star-three">✦</span><span class="gift-tag">FOR RICHA <i>✦</i></span></span>
-      </button>
-      <button class="gift-box gift-box-small gift-box-right" type="button" aria-label="Open the third birthday gift">
-        <span class="gift-glow" aria-hidden="true"></span><span class="gift-shadow" aria-hidden="true"></span>
-        <span class="gift-lid"><span class="ribbon-cross"></span><span class="bow-loop bow-left"></span><span class="bow-loop bow-right"></span><span class="bow-knot"></span><span class="bow-tail tail-left"></span><span class="bow-tail tail-right"></span></span>
-        <span class="gift-body"><span class="ribbon-cross"></span><span class="gift-star star-one">✦</span><span class="gift-star star-two">✧</span></span>
-      </button>
-    </div>
-    <p class="tap-hint"><span>✧</span> CLICK HERE TO OPEN YOUR BIRTHDAY GIFT <span>✧</span></p>
+    <button class="envelope-button" id="openEnvelope" type="button" aria-label="Open your birthday envelope">
+      <span class="envelope-glow" aria-hidden="true"></span>
+      <span class="envelope-letter" aria-hidden="true"><span>✦</span><strong>FOR RICHA</strong><small>A LITTLE BIRTHDAY WISH</small></span>
+      <span class="envelope-back" aria-hidden="true"></span>
+      <span class="envelope-front" aria-hidden="true"></span>
+      <span class="envelope-address" aria-hidden="true"><i>✦</i> <strong>FOR RICHA</strong> <i>✦</i></span>
+      <span class="envelope-flap" aria-hidden="true"></span>
+      <span class="envelope-seal" aria-hidden="true">R</span>
+    </button>
+    <p class="tap-hint"><span>✧</span> PLEASE CLICK THE ENVELOPE TO OPEN YOUR BIRTHDAY GIFT <span>✧</span></p>
   </div>
 
   <main class="page-shell hidden" id="birthdayPage">
@@ -101,7 +91,7 @@
       <p class="hero-message">Wishing you a Happy Birthday Madamji!!!</p>
       <p class="hero-subtitle">May your next chapter be filled with beautiful moments,<br class="desktop-break"> unexpected adventures, and all the happiness you deserve.</p>
       <button class="surprise-button" id="surpriseButton" type="button">Click here to see your birthday note <span>↗</span></button>
-      <p class="scroll-hint">♡ &nbsp; CLICK BELOW FOR YOUR NOTE</p>
+      <p class="scroll-hint">♡ &nbsp; MAKE A WISH OR OPEN YOUR BIRTHDAY NOTE</p>
     </section>
   </main>
 
@@ -143,6 +133,7 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite">A little extra sparkle for your day ✨</div>
   <div class="fireworks" id="fireworks" aria-hidden="true"></div>
+  <div class="gift-reveal-flash" id="giftRevealFlash" aria-hidden="true"></div>
   <audio id="birthdayMusic" src="assets/birthday-melody.mp3" loop preload="auto"></audio>
   <script src="script.js"></script>
 </body>
