@@ -53,19 +53,26 @@
       <h1>A birthday note<br><em>just for you</em></h1>
       <p>There’s a little surprise waiting inside…</p>
     </div>
-    <button class="envelope-button" id="openEnvelope" aria-label="Open your birthday envelope">
-      <span class="envelope-glow"></span>
-      <span class="letter">
-        <span class="letter-sparkle">✦</span>
-        <span class="letter-title">For Richa</span>
-        <span class="letter-subtitle">A little note, with warm wishes</span>
-      </span>
-      <span class="envelope-back"></span>
-      <span class="envelope-front"></span>
-      <span class="envelope-flap"></span>
-      <span class="seal">✦</span>
-    </button>
-    <p class="tap-hint"><span>✧</span> PLEASE CLICK ENVELOPE TO SEE YOUR NOTE <span>✧</span></p>
+    <div class="gift-trio" aria-label="Choose a birthday gift">
+      <span class="gift-arrow gift-arrow-left" aria-hidden="true">➜</span>
+      <span class="gift-arrow gift-arrow-right" aria-hidden="true">⬅</span>
+      <button class="gift-box gift-box-small gift-box-left" type="button" aria-label="Open the first birthday gift">
+        <span class="gift-glow" aria-hidden="true"></span><span class="gift-shadow" aria-hidden="true"></span>
+        <span class="gift-lid"><span class="ribbon-cross"></span><span class="bow-loop bow-left"></span><span class="bow-loop bow-right"></span><span class="bow-knot"></span><span class="bow-tail tail-left"></span><span class="bow-tail tail-right"></span></span>
+        <span class="gift-body"><span class="ribbon-cross"></span><span class="gift-star star-one">✦</span><span class="gift-star star-two">✧</span></span>
+      </button>
+      <button class="gift-box" id="openEnvelope" type="button" aria-label="Open your birthday gift">
+        <span class="gift-glow" aria-hidden="true"></span><span class="gift-shadow" aria-hidden="true"></span>
+        <span class="gift-lid"><span class="ribbon-cross"></span><span class="bow-loop bow-left"></span><span class="bow-loop bow-right"></span><span class="bow-knot"></span><span class="bow-tail tail-left"></span><span class="bow-tail tail-right"></span></span>
+        <span class="gift-body"><span class="ribbon-cross"></span><span class="gift-star star-one">✦</span><span class="gift-star star-two">✧</span><span class="gift-star star-three">✦</span><span class="gift-tag">FOR RICHA <i>✦</i></span></span>
+      </button>
+      <button class="gift-box gift-box-small gift-box-right" type="button" aria-label="Open the third birthday gift">
+        <span class="gift-glow" aria-hidden="true"></span><span class="gift-shadow" aria-hidden="true"></span>
+        <span class="gift-lid"><span class="ribbon-cross"></span><span class="bow-loop bow-left"></span><span class="bow-loop bow-right"></span><span class="bow-knot"></span><span class="bow-tail tail-left"></span><span class="bow-tail tail-right"></span></span>
+        <span class="gift-body"><span class="ribbon-cross"></span><span class="gift-star star-one">✦</span><span class="gift-star star-two">✧</span></span>
+      </button>
+    </div>
+    <p class="tap-hint"><span>✧</span> CLICK HERE TO OPEN YOUR BIRTHDAY GIFT <span>✧</span></p>
   </div>
 
   <main class="page-shell hidden" id="birthdayPage">
@@ -78,8 +85,14 @@
       <div class="floating-decor decor-left">✧</div><div class="floating-decor decor-right">✦</div>
       <div class="eyebrow"><span></span> TODAY IS ALL ABOUT YOU <span></span></div>
       <div class="cake-wrap" aria-hidden="true">
-        <div class="cake-candles"><i></i><i></i><i></i></div>
-        <div class="cake"><div class="icing"></div><div class="cake-layer"></div><div class="cake-base"></div></div>
+        <div class="cake-candles"><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="cake">
+          <div class="cake-tier cake-tier-top"><div class="icing"></div><div class="cake-sprinkles">✦ · ✧ · ✦</div></div>
+          <div class="cake-tier cake-tier-bottom"><div class="icing"></div><div class="cake-sprinkles">✧ · ✦ · ✧ · ✦ · ✧</div></div>
+          <div class="cake-base"></div>
+        </div>
+        <span class="cake-bear cake-bear-left" aria-hidden="true">🧸</span>
+        <span class="cake-bear cake-bear-right" aria-hidden="true">🧸</span>
         <div class="cake-plate"></div>
       </div>
       <p class="pre-title">Wishing you a day as wonderful as</p>
@@ -105,7 +118,7 @@
         <p>May you always find reasons to smile, courage to chase the things that make your heart feel alive, and people who make every ordinary day a little more special.</p>
         <p>Keep shining in your own way, keep collecting moments worth remembering, and never stop being wonderfully you.</p>
         <p>May this new year bring you beautiful surprises, warm laughter, and happiness that stays with you every day.</p>
-        <p class="note-signoff">WITH WARM WISHES,<br><strong>YOUR WELL WISHER, KRITI 😊</strong></p>
+        <p class="note-signoff">WITH WARM WISHES,<br><strong>YOUR WELL WISHER, KRITI <span class="signoff-smiley" role="img" aria-label="smiling face">😊</span></strong></p>
       </article>
       <section class="wishes-section">
         <div class="section-kicker">A FEW WISHES FOR YOUR NEW YEAR</div>
@@ -119,6 +132,7 @@
         <div class="closing-star">✦</div>
         <p class="closing-overline">ONE MORE TIME, WITH A BIG SMILE</p>
         <h2>Happy Birthday,<br><em>RICHA!</em></h2>
+        <div class="closing-smiley" role="img" aria-label="Smiling face">😊</div>
         <p>May this year be your most beautiful one yet.</p>
         <button class="replay-button" id="replayButton" type="button">Celebrate again <span>↗</span></button>
       </section>
@@ -128,6 +142,7 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite">A little extra sparkle for your day ✨</div>
   <div class="fireworks" id="fireworks" aria-hidden="true"></div>
+  <audio id="birthdayMusic" src="assets/birthday-melody.mp3" loop preload="auto"></audio>
   <script src="script.js"></script>
 </body>
 </html>

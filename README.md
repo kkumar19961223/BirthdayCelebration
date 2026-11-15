@@ -50,6 +50,25 @@ open index.html
 
 No `npm install`, build command, or server setup is required for this static version.
 
+## Run with Docker
+
+Build and run the site locally with:
+
+```bash
+docker build -t birthday-celebration .
+docker run --rm -p 8080:80 birthday-celebration
+```
+
+Open `http://localhost:8080` in your browser.
+
+## Docker packaging pipeline
+
+The GitHub Actions workflow in `.github/workflows/docker-package.yml` builds the site as a Linux/AMD64 Docker image on every push and pull request. It saves the image as a `.tar` archive and uploads it as a workflow artifact for 14 days. Download the artifact and load it locally with:
+
+```bash
+docker load --input birthday-celebration-<commit-sha>.tar
+```
+
 ## Customize the page
 
 - Change the displayed name and birthday text in `index.html`.

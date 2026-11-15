@@ -1,5 +1,5 @@
 const envelopeScreen = document.getElementById("envelopeScreen");
-const openEnvelope = document.getElementById("openEnvelope");
+const giftBoxes = document.querySelectorAll(".gift-box");
 const birthdayPage = document.getElementById("birthdayPage");
 const birthdayNoteScreen = document.getElementById("birthdayNoteScreen");
 const backToCelebration = document.getElementById("backToCelebration");
@@ -7,6 +7,7 @@ const surpriseButton = document.getElementById("surpriseButton");
 const replayButton = document.getElementById("replayButton");
 const toast = document.getElementById("toast");
 const fireworks = document.getElementById("fireworks");
+const birthdayMusic = document.getElementById("birthdayMusic");
 
 function showToast(message) {
   toast.textContent = message;
@@ -63,9 +64,11 @@ function celebrate() {
   launchFireworks();
 }
 
-openEnvelope.addEventListener("click", () => {
-  if (openEnvelope.classList.contains("open")) return;
-  openEnvelope.classList.add("open");
+giftBoxes.forEach((giftBox) => giftBox.addEventListener("click", () => {
+  if (giftBox.classList.contains("open")) return;
+  giftBox.classList.add("open");
+  // The gift box click is a user gesture, so browsers allow the music to start here.
+  birthdayMusic.play().catch(() => {});
   celebrate();
   window.setTimeout(celebrate, 900);
   window.setTimeout(celebrate, 1900);
@@ -78,7 +81,7 @@ openEnvelope.addEventListener("click", () => {
       window.scrollTo(0, 0);
     }, 650);
   }, 1050);
-});
+}));
 
 surpriseButton.addEventListener("click", () => {
   celebrate();
