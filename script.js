@@ -63,15 +63,16 @@ function launchConfetti() {
 }
 
 function launchFireworks() {
-  const colors = ["#e7a4bd", "#f1c878", "#c5a0d0", "#fff0b8"];
+  const colors = ["#ff5964", "#69c7ff", "#ffd166", "#fff0d0", "#d9a6ff"];
   const mobile = window.innerWidth < 700;
   const tablet = window.innerWidth < 1000;
-  const burstCount = mobile ? 4 : tablet ? 7 : 10;
+  const burstCount = mobile ? 5 : tablet ? 8 : 11;
   const particlesPerBurst = mobile ? 12 : tablet ? 18 : 28;
+
   for (let burst = 0; burst < burstCount; burst++) {
     window.setTimeout(() => {
-      const x = 12 + Math.random() * 76;
-      const y = 12 + Math.random() * 55;
+      const x = 10 + Math.random() * 80;
+      const y = 7 + Math.random() * 30;
       for (let i = 0; i < particlesPerBurst; i++) {
         const dot = document.createElement("i");
         const angle = (Math.PI * 2 * i) / particlesPerBurst;
@@ -124,15 +125,16 @@ openEnvelope.addEventListener("click", openGift);
 
 surpriseButton.addEventListener("click", () => {
   celebrate();
-  birthdayPage.classList.add("hidden");
   birthdayNoteScreen.classList.remove("hidden");
-  window.scrollTo(0, 0);
+  const scrollBehavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+  birthdayNoteScreen.scrollIntoView({ behavior: scrollBehavior, block: "start" });
 });
 
 backToCelebration.addEventListener("click", () => {
   birthdayNoteScreen.classList.add("hidden");
   birthdayPage.classList.remove("hidden");
-  window.scrollTo(0, 0);
+  const scrollBehavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+  birthdayPage.scrollIntoView({ behavior: scrollBehavior, block: "start" });
 });
 
 replayButton.addEventListener("click", () => {
