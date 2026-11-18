@@ -798,4 +798,15 @@ body[data-layout-mode="mobile"] .party-balloons span:nth-child(n+7),body[data-la
 body[data-layout-mode="mobile"] .hang:nth-child(n+5),body[data-layout-mode="mobile"] .night-sparkles span:nth-child(n+4),body[data-layout-mode="mobile"] .smiley-stars span:nth-child(n+7){display:none}
 body[data-layout-mode="mobile"] .diya-row span:nth-child(n+4){display:none}
 @media(max-width:600px){.device-choice-panel{padding:27px 19px}.device-choice-options{grid-template-columns:1fr;gap:10px;margin-top:24px}.device-choice{min-height:82px}.device-choice-panel h1{font-size:clamp(34px,10vw,48px)}}
+@media(max-width:700px){
+  body[data-layout-mode="wide"] .page-shell{width:calc(100% - 24px)}
+  body[data-layout-mode="wide"] .hero{min-height:clamp(650px,calc(100svh - 55px),740px);padding:32px 0 58px}
+  body[data-layout-mode="wide"] .cake-wrap{transform:none;margin-top:24px}
+  body[data-layout-mode="wide"] .hero h1{font-size:clamp(76px,22vw,112px)}
+  body[data-layout-mode="wide"] .hero-message{font-size:clamp(25px,7vw,34px)}
+  body[data-layout-mode="wide"] .wish-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  body[data-layout-mode="wide"] .wish-card{padding:21px 12px}
+  body[data-layout-mode="wide"] .birthday-note-page{width:calc(100% - 24px)}
+  body[data-layout-mode="wide"] .birthday-note-card{padding:clamp(32px,6vw,46px) clamp(20px,4vw,32px)}
+}
 @media(prefers-reduced-motion:reduce){.device-choice-panel{animation:none}.device-choice-screen{transition:none}.envelope-screen.mode-entering{animation:none}}
