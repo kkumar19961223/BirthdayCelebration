@@ -9,7 +9,14 @@ const toast = document.getElementById("toast");
 const fireworks = document.getElementById("fireworks");
 const birthdayMusic = document.getElementById("birthdayMusic");
 const giftRevealFlash = document.getElementById("giftRevealFlash");
+const deviceChoiceScreen = document.getElementById("deviceChoiceScreen");
+const deviceChoiceButtons = document.querySelectorAll(".device-choice");
 let resumeMusicOnReturn = false;
+
+function isCompactExperience() {
+  return document.body.dataset.layoutMode === "mobile" ||
+    window.matchMedia("(max-width: 700px), (hover: none) and (pointer: coarse)").matches;
+}
 
 function pauseMusicWhileAway() {
   if (birthdayMusic.paused) return;
@@ -47,15 +54,17 @@ function showToast(message) {
 
 function launchConfetti() {
   const colors = ["#f0a9c0", "#d9a6c5", "#f4cf8c", "#fff8f4", "#c99ab7", "#e88da9"];
-  const amount = window.innerWidth < 600 ? 24 : window.innerWidth < 900 ? 60 : 130;
+  const compact = isCompactExperience();
+  const amount = compact ? 16 : window.innerWidth < 900 ? 60 : 130;
+  const driftRange = compact ? 90 : 240;
   for (let i = 0; i < amount; i++) {
     const piece = document.createElement("span");
     piece.className = "confetti";
     piece.style.left = `${Math.random() * 100}vw`;
     piece.style.background = colors[Math.floor(Math.random() * colors.length)];
     piece.style.opacity = `${0.6 + Math.random() * 0.4}`;
-    piece.style.setProperty("--drift", `${Math.random() * 240 - 120}px`);
-    piece.style.animationDuration = `${3 + Math.random() * 3}s`;
+    piece.style.setProperty("--drift", `${Math.random() * driftRange - driftRange / 2}px`);
+    piece.style.animationDuration = `${compact ? 4.5 : 3 + Math.random() * 3}s`;
     piece.style.animationDelay = `${Math.random() * 0.7}s`;
     document.body.appendChild(piece);
     window.setTimeout(() => piece.remove(), 7200);
@@ -64,10 +73,10 @@ function launchConfetti() {
 
 function launchFireworks() {
   const colors = ["#ff5964", "#69c7ff", "#ffd166", "#fff0d0", "#d9a6ff"];
-  const mobile = window.innerWidth < 700;
+  const mobile = isCompactExperience();
   const tablet = window.innerWidth < 1000;
-  const burstCount = mobile ? 5 : tablet ? 8 : 11;
-  const particlesPerBurst = mobile ? 12 : tablet ? 18 : 28;
+  const burstCount = mobile ? 4 : tablet ? 8 : 11;
+  const particlesPerBurst = mobile ? 10 : tablet ? 18 : 28;
 
   for (let burst = 0; burst < burstCount; burst++) {
     window.setTimeout(() => {
@@ -76,7 +85,7 @@ function launchFireworks() {
       for (let i = 0; i < particlesPerBurst; i++) {
         const dot = document.createElement("i");
         const angle = (Math.PI * 2 * i) / particlesPerBurst;
-        const distance = 55 + Math.random() * 85;
+        const distance = mobile ? 36 + Math.random() * 48 : 55 + Math.random() * 85;
         dot.className = "burst";
         dot.style.left = `${x}%`;
         dot.style.top = `${y}%`;
@@ -95,6 +104,26 @@ function celebrate() {
   launchConfetti();
   launchFireworks();
 }
+
+deviceChoiceButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    document.body.dataset.layoutMode = button.dataset.layoutMode;
+    deviceChoiceButtons.forEach((choice) => { choice.disabled = true; });
+    deviceChoiceScreen.classList.add("leaving");
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.setTimeout(() => {
+      deviceChoiceScreen.classList.add("hidden");
+      envelopeScreen.classList.remove("hidden");
+      envelopeScreen.classList.add("mode-entering");
+      if (!reducedMotion) {
+        window.setTimeout(() => envelopeScreen.classList.remove("mode-entering"), 650);
+      } else {
+        envelopeScreen.classList.remove("mode-entering");
+      }
+    }, reducedMotion ? 0 : 320);
+  });
+});
 
 function openGift() {
   if (openEnvelope.classList.contains("open")) return;

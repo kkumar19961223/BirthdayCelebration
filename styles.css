@@ -567,26 +567,94 @@ button, .surprise-button { touch-action: manipulation; }
   .diya-row span:nth-child(n + 4) { display: none; }
   .note-stars span:nth-child(n + 3) { display: none; }
   .diya-row { bottom: max(5px, env(safe-area-inset-bottom)); }
-  /* Keep the phone layout visually steady; reserve motion for the candle flames and reveal transition. */
-  .party-balloons span,
-  .bottom-balloons span,
-  .hang,
-  .stars,
-  .night-sparkles span,
-  .smiley-stars span,
-  .diya-row span,
-  .tap-hint,
-  .cake-bear,
-  .smile-deco,
-  .closing-smiley,
-  .always-smile { animation: none !important; }
-  .party-balloons span { bottom: auto; top: 14%; transform: none; opacity: .42; }
-  .party-balloons span:nth-child(even) { top: 66%; }
-  .bottom-balloons span,
-  .hang,
-  .night-sparkles span,
-  .smiley-stars span,
-  .diya-row span { transform: none; translate: none; }
+  /* Keep gentle, transform-based motion while reducing movement and paint cost on touch screens. */
+  .party-balloons span {
+    top: auto;
+    bottom: -12vh;
+    opacity: .5;
+    animation: mobileBalloonRise calc(var(--duration) + 5s) linear var(--delay) infinite;
+    will-change: transform, opacity;
+  }
+  .bottom-balloons span {
+    transform: none;
+    animation: mobileBottomFloat 6.5s ease-in-out infinite;
+    will-change: translate;
+  }
+  .hang { animation: mobileSway 7s ease-in-out infinite; }
+  .stars { opacity: .55; animation: twinkle 6s ease-in-out infinite alternate; }
+  .night-sparkles span { animation: mobileStarGlow 4s ease-in-out infinite alternate; }
+  .stars::after, .note-stars span { animation: mobileStarGlow 4s ease-in-out infinite alternate; }
+  .closing-star { animation-duration: 3s; }
+  .smiley-stars span { transform: none; animation: mobileEmojiFloat 7s ease-in-out infinite alternate; }
+  .diya-row span { transform: none; animation: mobileDiyaGlow 2.6s ease-in-out infinite alternate; }
+  .tap-hint { animation: hintGlow 2.5s ease-in-out infinite alternate; }
+  .cake-bear { animation: mobileBearBop 3.8s ease-in-out infinite alternate; }
+  .smile-deco { animation: mobileSmileBounce 2.8s ease-in-out infinite alternate; }
+  .closing-smiley { animation: mobileSmileyFloat 5.5s ease-in-out infinite alternate; }
+  .always-smile { animation-duration: 3s; }
+  .floating-decor { animation: mobileDecorFloat 5s ease-in-out infinite alternate; }
+  .scroll-hint .scroll-arrow { animation: mobileArrowBob 1.8s ease-in-out infinite alternate; }
+  .scroll-hint .scroll-arrow:last-child { animation-delay: .6s; }
+  .surprise-button { animation-duration: 3.2s; }
+  .envelope-glow { animation-duration: 3s; }
+  .envelope-back { animation-duration: 3s; }
+  .cake-candles i::before { animation-duration: 1.15s; }
+  .burst { width: 4px; height: 4px; box-shadow: 0 0 7px currentColor, 0 0 14px currentColor; }
+  .confetti { width: 5px; height: 9px; }
+  .gift-reveal-flash.active { animation: mobileGiftBurst .95s ease-out forwards; }
+  .gift-reveal-flash::after { opacity: .45; }
+  @keyframes mobileBalloonRise {
+    0% { transform: translate3d(0, 0, 0) rotate(-4deg); opacity: 0; }
+    12% { opacity: .45; }
+    50% { transform: translate3d(5px, -45vh, 0) rotate(3deg); }
+    88% { opacity: .38; }
+    100% { transform: translate3d(-4px, -96vh, 0) rotate(-4deg); opacity: 0; }
+  }
+  @keyframes mobileBottomFloat {
+    0%, 100% { translate: 0 0; opacity: .6; }
+    50% { translate: 0 -7px; opacity: .82; }
+  }
+  @keyframes mobileSway {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+  @keyframes mobileStarGlow {
+    from { opacity: .38; }
+    to { opacity: .78; }
+  }
+  @keyframes mobileEmojiFloat {
+    0%, 100% { transform: translateY(0) rotate(0); opacity: .25; }
+    50% { transform: translateY(-4px) rotate(2deg); opacity: .42; }
+  }
+  @keyframes mobileDiyaGlow {
+    from { filter: drop-shadow(0 0 8px #ffb43e) drop-shadow(0 0 16px #ff7b2d66); }
+    to { filter: drop-shadow(0 0 12px #ffe26e) drop-shadow(0 0 22px #ff792d99); }
+  }
+  @keyframes mobileBearBop {
+    from { translate: 0 0; rotate: 0deg; }
+    to { translate: 0 -2px; rotate: 1.5deg; }
+  }
+  @keyframes mobileSmileBounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-2px); }
+  }
+  @keyframes mobileSmileyFloat {
+    from { transform: translateY(0) rotate(0); }
+    to { transform: translateY(-4px) rotate(2deg); }
+  }
+  @keyframes mobileDecorFloat {
+    from { transform: translateY(0); }
+    to { transform: translateY(-4px); }
+  }
+  @keyframes mobileArrowBob {
+    from { transform: translateY(0); }
+    to { transform: translateY(3px); }
+  }
+  @keyframes mobileGiftBurst {
+    0% { opacity: 0; }
+    25% { opacity: .9; }
+    100% { opacity: 0; }
+  }
   .tap-hint { text-shadow: 0 0 8px #ffe29c, 0 0 20px #d89affcc; }
   .envelope-screen {
     padding: max(28px, calc(28px + env(safe-area-inset-top))) 16px
@@ -686,3 +754,48 @@ button, .surprise-button { touch-action: manipulation; }
 @media(hover:hover){.surprise-button:hover{transform:translateY(-4px) scale(1.07);filter:brightness(1.12);box-shadow:0 0 24px #ffcb71dd,0 0 52px #d89affcc,inset 0 0 18px #fff5cf55}}
 .surprise-button:focus-visible{transform:translateY(-3px) scale(1.05);box-shadow:0 0 24px #ffcb71dd,0 0 52px #d89affcc,inset 0 0 18px #fff5cf55}
 .surprise-button:active{transform:translateY(-1px) scale(1.04);filter:brightness(1.18);box-shadow:0 0 28px #ffcb71ee,0 0 58px #d89affdd,inset 0 0 22px #fff5cf77}
+
+@media (hover: none) and (pointer: coarse) {
+  .envelope-button:hover {
+    transform: none;
+    filter: drop-shadow(0 0 14px #e8b8ff99) drop-shadow(0 24px 28px #090715aa);
+  }
+  .envelope-button:active { transform: scale(1.025); }
+}
+
+.device-choice-screen{position:relative;z-index:2;isolation:isolate;display:grid;place-items:center;min-height:100vh;min-height:100svh;padding:max(28px,calc(28px + env(safe-area-inset-top))) 18px max(28px,calc(28px + env(safe-area-inset-bottom)));text-align:center;opacity:1;transition:opacity .32s ease,transform .32s ease}
+.device-choice-screen.hidden,.envelope-screen.hidden{display:none}
+.device-choice-screen.leaving{opacity:0;transform:translateY(-8px);pointer-events:none}
+.device-choice-panel{width:min(680px,100%);padding:clamp(28px,6vw,54px);border:1px solid #dfc18b99;border-radius:22px;background:linear-gradient(145deg,#1c1a36ed,#15182ff2 58%,#241933ed);box-shadow:inset 0 0 0 5px #d9b9f015,0 0 0 4px #d3b2f21a,0 0 38px #a17bd344,0 24px 80px #03051388;animation:choicePanelIn .65s cubic-bezier(.2,.8,.2,1) both}
+.device-choice-kicker{color:#d7b6eb;font-size:10px;font-weight:800;letter-spacing:.24em}
+.device-choice-panel h1{margin:16px 0 10px;color:#fff2da;font:600 clamp(34px,6vw,54px)/1.12 "Playfair Display",serif;text-shadow:0 0 22px #d1a4ff44}
+.device-choice-intro{margin:0;color:#c9bbde;font-size:14px;line-height:1.65}
+.device-choice-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:30px}
+.device-choice{min-width:0;min-height:100px;display:grid;grid-template-columns:42px minmax(0,1fr) 18px;align-items:center;gap:12px;padding:17px 15px;border:1px solid #d6bb8d88;border-radius:14px;background:linear-gradient(145deg,#30254b,#211d3b);color:#fff4df;text-align:left;cursor:pointer;box-shadow:inset 0 0 16px #d5aaff0d,0 8px 22px #08081766;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease,background .22s ease}
+.device-choice-icon{width:34px;height:40px;fill:none;stroke:#f1cc86;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px #ffd27d66)}
+.device-choice-copy{display:grid;gap:5px;min-width:0}
+.device-choice-copy strong{font-size:14px;font-weight:800;letter-spacing:.04em}
+.device-choice-copy small{color:#c4b7d6;font-size:11px;line-height:1.4}
+.device-choice-arrow{justify-self:end;color:#ffd27d;font-size:20px;font-weight:900;text-shadow:0 0 12px #ffd27d88}
+.device-choice:focus-visible{outline:2px solid #ffe7ad;outline-offset:4px}
+@media(hover:hover){.device-choice:hover{transform:translateY(-4px);border-color:#ffe2a3;box-shadow:0 0 20px #ffd27d33,0 12px 28px #08081788;background:linear-gradient(145deg,#44315e,#292142)}}
+@keyframes choicePanelIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes modeEnvelopeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.envelope-screen.mode-entering{animation:modeEnvelopeIn .55s ease-out both}
+body[data-layout-mode="mobile"] .page-shell{width:min(440px,calc(100% - 32px))}
+body[data-layout-mode="mobile"] .hero{min-height:620px;padding:38px 2px 60px}
+body[data-layout-mode="mobile"] .hero h1{font-size:clamp(68px,21vw,112px)}
+body[data-layout-mode="mobile"] .hero-message{font-size:clamp(20px,6vw,32px)}
+body[data-layout-mode="mobile"] .hero-subtitle{font-size:12px}
+body[data-layout-mode="mobile"] .wish-grid{grid-template-columns:1fr;gap:11px}
+body[data-layout-mode="mobile"] .message-card{padding:42px 22px}
+body[data-layout-mode="mobile"] .birthday-note-page{width:min(440px,calc(100% - 32px))}
+body[data-layout-mode="mobile"] .birthday-note-card{padding:30px 22px}
+body[data-layout-mode="mobile"] .birthday-note-card>p:not(.section-kicker){font-size:14px}
+body[data-layout-mode="mobile"] .birthday-note-card .always-smile{font-size:clamp(25px,7vw,32px)!important}
+body[data-layout-mode="mobile"] .birthday-note-card .smile-promise{font-size:clamp(24px,6.5vw,30px)}
+body[data-layout-mode="mobile"] .party-balloons span:nth-child(n+7),body[data-layout-mode="mobile"] .bottom-balloons span:nth-child(n+7){display:none}
+body[data-layout-mode="mobile"] .hang:nth-child(n+5),body[data-layout-mode="mobile"] .night-sparkles span:nth-child(n+4),body[data-layout-mode="mobile"] .smiley-stars span:nth-child(n+7){display:none}
+body[data-layout-mode="mobile"] .diya-row span:nth-child(n+4){display:none}
+@media(max-width:600px){.device-choice-panel{padding:27px 19px}.device-choice-options{grid-template-columns:1fr;gap:10px;margin-top:24px}.device-choice{min-height:82px}.device-choice-panel h1{font-size:clamp(34px,10vw,48px)}}
+@media(prefers-reduced-motion:reduce){.device-choice-panel{animation:none}.device-choice-screen{transition:none}.envelope-screen.mode-entering{animation:none}}

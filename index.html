@@ -47,7 +47,27 @@
     <div class="stars"></div>
   </div>
 
-  <div class="envelope-screen" id="envelopeScreen">
+  <main class="device-choice-screen" id="deviceChoiceScreen" aria-labelledby="device-choice-title">
+    <section class="device-choice-panel">
+      <span class="device-choice-kicker">A LITTLE SURPRISE FOR YOU</span>
+      <h1 id="device-choice-title">Choose your view</h1>
+      <p class="device-choice-intro">Pick the experience that feels right for your screen.</p>
+      <div class="device-choice-options">
+        <button class="device-choice" type="button" data-layout-mode="mobile">
+          <svg class="device-choice-icon" viewBox="0 0 40 48" aria-hidden="true"><rect x="8" y="2" width="24" height="44" rx="5"/><path d="M16 7h8M18 40h4"/></svg>
+          <span class="device-choice-copy"><strong>Mobile</strong></span>
+          <span class="device-choice-arrow" aria-hidden="true">↗</span>
+        </button>
+        <button class="device-choice" type="button" data-layout-mode="wide">
+          <svg class="device-choice-icon" viewBox="0 0 48 42" aria-hidden="true"><rect x="5" y="3" width="38" height="27" rx="3"/><path d="M2 36h44l-4-6H6zM17 36h14"/></svg>
+          <span class="device-choice-copy"><strong>Tablet / Laptop</strong></span>
+          <span class="device-choice-arrow" aria-hidden="true">↗</span>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <div class="envelope-screen hidden" id="envelopeScreen">
     <div class="intro-copy">
       <span class="tiny-label">A LITTLE SOMETHING FOR YOU</span>
       <h1>A birthday note<br><em>just for you</em></h1>
