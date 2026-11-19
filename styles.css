@@ -686,3 +686,189 @@ button, .surprise-button { touch-action: manipulation; }
 @media(hover:hover){.surprise-button:hover{transform:translateY(-4px) scale(1.07);filter:brightness(1.12);box-shadow:0 0 24px #ffcb71dd,0 0 52px #d89affcc,inset 0 0 18px #fff5cf55}}
 .surprise-button:focus-visible{transform:translateY(-3px) scale(1.05);box-shadow:0 0 24px #ffcb71dd,0 0 52px #d89affcc,inset 0 0 18px #fff5cf55}
 .surprise-button:active{transform:translateY(-1px) scale(1.04);filter:brightness(1.18);box-shadow:0 0 28px #ffcb71ee,0 0 58px #d89affdd,inset 0 0 22px #fff5cf77}
+
+/* Sky blue theme: replace the former purple surfaces and accents. */
+:root { --ink: #38536f; --muted: #7189a3; }
+body { color: #38536f; background: linear-gradient(145deg, #eff5fc, #d9e7f6 52%, #edf4fb); }
+.sky {
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(107, 153, 197, .24), transparent 52%),
+    radial-gradient(ellipse at 12% 78%, rgba(71, 111, 156, .16), transparent 38%),
+    linear-gradient(180deg, #b9d0e8 0%, #d3e3f3 55%, #eef4fa 100%);
+}
+.cloud { background: rgba(255, 255, 255, .5); }
+.envelope-screen { color: #38536f; }
+.intro-copy .tiny-label, .tap-hint, .topbar-note, .brand { color: #5b7694; }
+.intro-copy h1, .hero h1, .message-card h2, .wish-card h3,
+.closing-section h2, .birthday-note-card h1 { color: #2d4967; text-shadow: 0 0 22px #a9c5e766; }
+.intro-copy h1 em, .hero-message, .message-card h2 em,
+.closing-section h2 em { color: #527fa8; }
+.intro-copy p, .pre-title, .hero-subtitle, .message-card p,
+.wish-card p, .signature, .closing-section > p:not(.closing-overline),
+.birthday-note-card > p:not(.section-kicker) { color: #657e98; }
+.topbar { border-color: #69bce755; }
+.brand span, .hero h1 span, .birthday-rule, .floating-decor,
+.closing-star, .message-card:before, .message-card:after,
+.wish-card > span, .signature span { color: #d49a44; }
+.eyebrow, .section-kicker, .closing-overline { color: #587da1; }
+.eyebrow span, .birthday-rule span, footer { border-color: #91b4d577; }
+.eyebrow span, .birthday-rule span { background: #91b4d5; }
+.surprise-button, .replay-button, .toast {
+  border-color: #8caecc;
+  background: linear-gradient(120deg, #c4d8ed, #e5eff9, #b4cce5);
+  color: #385674;
+  box-shadow: 0 0 18px #8eafd477, inset 0 0 14px #fff9;
+}
+.surprise-button:hover, .replay-button:hover { background: #dce9f6; }
+.message-card, .wish-card {
+  background: rgba(239, 250, 255, .88);
+  border-color: #a2bad4;
+  box-shadow: 0 18px 65px #506f9222;
+}
+.quote-mark { color: #6e94ba; }
+footer { color: #607d99; }
+.toast { background: #e7eff8; }
+.envelope-button:hover, .envelope-button:focus-visible {
+  filter: drop-shadow(0 0 30px #adc8e8cc) drop-shadow(0 28px 34px #41698555);
+}
+.envelope-glow {
+  background: radial-gradient(ellipse, #b3cce988 0%, #d2e1f466 42%, transparent 72%);
+}
+.envelope-back {
+  background: linear-gradient(105deg, #456688 0%, #7798bb 18%, #5f82a8 50%, #45688e 82%, #355776 100%);
+  box-shadow: inset 0 2px 10px #fff8, inset 0 -12px 20px #1c638855,
+    0 14px 24px #315f7c55, 0 0 0 1px #f8dcae88, 0 0 12px #ffd17eaa, 0 0 24px #76d1ff99;
+}
+.envelope-front {
+  background: linear-gradient(115deg, #456789 0%, #7b9bbc 24%, #6285aa 52%, #496b90 78%, #375978 100%);
+}
+.envelope-flap {
+  background: linear-gradient(155deg, #c1d5eb 0%, #8ca9c9 58%, #587b9e 100%);
+}
+.envelope-letter { color: #38536f; }
+.envelope-letter small { color: #7187a0; }
+.birthday-note-card {
+  background: linear-gradient(145deg, #e8f0f9F5, #d9e6f3F5 55%, #f2f6fbF5);
+  border-color: #d9b66f;
+  box-shadow: inset 0 0 0 5px #81cae82e, inset 0 0 32px #fff9,
+    0 0 0 4px #81cae833, 0 0 34px #65c2eb66, 0 25px 90px #315f7c33;
+}
+.birthday-note-card::before { border-color: #d9b66f88; }
+.birthday-note-card::after {
+  background:
+    linear-gradient(#d9b66f, #d9b66f) left top / 24px 2px no-repeat,
+    linear-gradient(#d9b66f, #d9b66f) left top / 2px 24px no-repeat,
+    linear-gradient(#d9b66f, #d9b66f) right top / 24px 2px no-repeat,
+    linear-gradient(#d9b66f, #d9b66f) right top / 2px 24px no-repeat,
+    linear-gradient(#d9b66f, #d9b66f) left bottom / 24px 2px no-repeat,
+    linear-gradient(#d9b66f, #d9b66f) left bottom / 2px 24px no-repeat,
+    linear-gradient(#d9b66f, #d9b66f) right bottom / 24px 2px no-repeat,
+    linear-gradient(#d9b66f, #d9b66f) right bottom / 2px 24px no-repeat;
+}
+.birthday-note-card .smile-promise { color: #385674; }
+.birthday-note-card .note-signoff { color: #946a2d; }
+.birthday-note-card .note-signoff strong { color: #38536f; }
+.note-back { color: #526f90; }
+.note-stars span { text-shadow: 0 0 12px #fff, 0 0 35px #9ab6d8; }
+.tap-hint {
+  color: #385674;
+  background: #e4edf7dd;
+  border-color: #9ab5d1;
+  box-shadow: 0 0 14px #a5bfdd88, inset 0 0 12px #fff9;
+  text-shadow: 0 0 8px #fff, 0 0 18px #a5bfdd;
+}
+.tap-hint:hover, .tap-hint:focus-visible {
+  border-color: #7295bb;
+  box-shadow: 0 0 18px #a5bfdd, 0 0 38px #91afd2aa, inset 0 0 18px #fff9;
+}
+.tap-hint span { color: #5e83aa; text-shadow: 0 0 12px #a5bfdd; }
+@keyframes buttonGlow {
+  to { box-shadow: 0 0 24px #adc5e2dd, 0 0 50px #829fc2bb, inset 0 0 20px #fff9; }
+}
+@keyframes hintGlow {
+  to { text-shadow: 0 0 12px #fff, 0 0 28px #a5bfdd, 0 0 46px #829fc2cc; }
+}
+
+/* Deep navy colorway. */
+:root { --ink: #e7f1fc; --muted: #b7cbe0; }
+body { color: #e7f1fc; background: linear-gradient(145deg, #07172b, #0b2542 52%, #102f50); }
+.sky {
+  background:
+    radial-gradient(ellipse at 50% 26%, rgba(56, 113, 166, .34), transparent 52%),
+    radial-gradient(ellipse at 12% 78%, rgba(32, 93, 142, .28), transparent 38%),
+    linear-gradient(180deg, #081a31 0%, #0d2948 55%, #123452 100%);
+}
+.cloud { background: rgba(151, 194, 231, .13); }
+.envelope-screen { color: #e7f1fc; }
+.intro-copy .tiny-label, .tap-hint, .topbar-note, .brand,
+.intro-copy p, .pre-title, .hero-subtitle, .scroll-hint,
+.closing-section > p:not(.closing-overline) { color: #c0d2e5; }
+.intro-copy h1, .hero h1, .message-card h2, .wish-card h3,
+.closing-section h2, .birthday-note-card h1 { color: #f2f7fd; text-shadow: 0 0 22px #76addb55; }
+.intro-copy h1 em, .hero-message, .message-card h2 em,
+.closing-section h2 em { color: #a9d7fa; }
+.message-card p, .wish-card p, .signature,
+.birthday-note-card > p:not(.section-kicker) { color: #c6d6e7; }
+.topbar, footer { border-color: #91b7d655; }
+.eyebrow, .section-kicker, .closing-overline { color: #b4d2ed; }
+.eyebrow span, .birthday-rule span { background: #84add2; }
+.surprise-button, .replay-button, .toast {
+  border-color: #9bbad8;
+  background: linear-gradient(120deg, #183a5d, #27527a, #153453);
+  color: #f0f7ff;
+  box-shadow: 0 0 18px #72a6d477, inset 0 0 14px #d9edff22;
+}
+.surprise-button:hover, .replay-button:hover { background: #2c5b83; }
+.message-card, .wish-card {
+  background: rgba(13, 35, 60, .88);
+  border-color: #779cbe88;
+  box-shadow: 0 18px 65px #020b16aa;
+}
+.message-card h2, .wish-card h3 { color: #edf6ff; }
+.quote-mark { color: #9dcaf0; }
+footer { color: #b7cbe0; }
+.toast { background: #153655; }
+.envelope-button:hover, .envelope-button:focus-visible {
+  filter: drop-shadow(0 0 30px #7eb9edbb) drop-shadow(0 28px 34px #020b16bb);
+}
+.envelope-glow { background: radial-gradient(ellipse, #75b7eb66 0%, #3d75a055 42%, transparent 72%); }
+.envelope-back {
+  background: linear-gradient(105deg, #102943 0%, #285179 18%, #1d4166 50%, #153554 82%, #0b223b 100%);
+  box-shadow: inset 0 2px 10px #e4f3ff33, inset 0 -12px 20px #06182c99,
+    0 14px 24px #020b16bb, 0 0 0 1px #f8dcae88, 0 0 12px #ffd17e99, 0 0 24px #6ba9dc66;
+}
+.envelope-front {
+  background: linear-gradient(115deg, #102943 0%, #2a537a 24%, #20456b 52%, #17395d 78%, #0c253f 100%);
+}
+.envelope-flap { background: linear-gradient(155deg, #47739b 0%, #2d557c 58%, #173756 100%); }
+.birthday-note-card {
+  background: linear-gradient(145deg, #102943f5, #0c223bf5 55%, #153554f5);
+  border-color: #d9b66f;
+  box-shadow: inset 0 0 0 5px #9ec7e526, inset 0 0 32px #8ab5dd16,
+    0 0 0 4px #8eb7dd22, 0 0 34px #5b91bf55, 0 25px 90px #020b16cc;
+}
+.birthday-note-card::before { border-color: #d9b66f88; }
+.birthday-note-card h1 { color: #f2f7fd; }
+.birthday-note-card > p:not(.section-kicker) { color: #c6d6e7; }
+.birthday-note-card .smile-promise { color: #fff0be; }
+.birthday-note-card .note-signoff strong { color: #fff4d6; }
+.note-back { color: #d3e5f6; }
+.note-stars span { text-shadow: 0 0 12px #fff, 0 0 35px #88bce8; }
+.tap-hint {
+  color: #edf6ff;
+  background: #102b48dd;
+  border-color: #9bbad8;
+  box-shadow: 0 0 14px #6e9fc788, inset 0 0 12px #d9edff22;
+  text-shadow: 0 0 8px #fff, 0 0 18px #7eafd9;
+}
+.tap-hint:hover, .tap-hint:focus-visible {
+  border-color: #d6eaff;
+  box-shadow: 0 0 18px #8db9df, 0 0 38px #6398c4aa, inset 0 0 18px #d9edff33;
+}
+.tap-hint span { color: #c7e5ff; text-shadow: 0 0 12px #7eafd9; }
+@keyframes buttonGlow {
+  to { box-shadow: 0 0 24px #79addddd, 0 0 50px #4c80b0bb, inset 0 0 20px #d9edff33; }
+}
+@keyframes hintGlow {
+  to { text-shadow: 0 0 12px #fff, 0 0 28px #7eafd9, 0 0 46px #4d81b2cc; }
+}
