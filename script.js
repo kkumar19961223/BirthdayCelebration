@@ -10,6 +10,9 @@ const fireworks = document.getElementById("fireworks");
 const birthdayMusic = document.getElementById("birthdayMusic");
 const giftRevealFlash = document.getElementById("giftRevealFlash");
 let resumeMusicOnReturn = false;
+let letterTypingTimer = 0;
+let letterTypingRun = 0;
+let noteRevealTimer = 0;
 
 function pauseMusicWhileAway() {
   if (birthdayMusic.paused) return;
@@ -96,6 +99,56 @@ function celebrate() {
   launchFireworks();
 }
 
+function typeBirthdayLetter() {
+  const noteCard = document.querySelector(".birthday-note-card");
+  const title = document.getElementById("note-title");
+  if (!noteCard || !title) return;
+
+  letterTypingRun += 1;
+  const thisRun = letterTypingRun;
+  window.clearTimeout(letterTypingTimer);
+  noteCard.querySelectorAll(".type-char").forEach((letter) => {
+    letter.replaceWith(document.createTextNode(letter.textContent));
+  });
+  noteCard.normalize();
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const targets = [title, ...noteCard.querySelectorAll("#note-title ~ p")];
+  const letters = [];
+  targets.forEach((target) => {
+    const walker = document.createTreeWalker(target, NodeFilter.SHOW_TEXT);
+    const textNodes = [];
+    while (walker.nextNode()) {
+      if (walker.currentNode.nodeValue.trim()) textNodes.push(walker.currentNode);
+    }
+    textNodes.forEach((textNode) => {
+      const fragment = document.createDocumentFragment();
+      for (const character of textNode.nodeValue) {
+        if (/\s/.test(character)) {
+          fragment.append(document.createTextNode(character));
+        } else {
+          const letter = document.createElement("span");
+          letter.className = "type-char";
+          letter.textContent = character;
+          fragment.append(letter);
+          letters.push(letter);
+        }
+      }
+      textNode.replaceWith(fragment);
+    });
+  });
+
+  let nextLetter = 0;
+  const revealNextLetter = () => {
+    if (thisRun !== letterTypingRun || nextLetter >= letters.length) return;
+    letters[nextLetter].classList.add("is-typed");
+    nextLetter += 1;
+    letterTypingTimer = window.setTimeout(revealNextLetter, 40);
+  };
+  letterTypingTimer = window.setTimeout(revealNextLetter, 320);
+}
+
 function openGift() {
   if (openEnvelope.classList.contains("open")) return;
   openEnvelope.classList.add("open");
@@ -126,19 +179,40 @@ openEnvelope.addEventListener("click", openGift);
 surpriseButton.addEventListener("click", () => {
   celebrate();
   birthdayNoteScreen.classList.remove("hidden");
+  birthdayNoteScreen.classList.remove("is-opening");
+  void birthdayNoteScreen.offsetWidth;
+  birthdayNoteScreen.classList.add("is-opening");
+  window.clearTimeout(noteRevealTimer);
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  noteRevealTimer = window.setTimeout(() => {
+    typeBirthdayLetter();
+    noteRevealTimer = window.setTimeout(() => {
+      birthdayNoteScreen.classList.remove("is-opening");
+    }, reduceMotion ? 0 : 500);
+  }, reduceMotion ? 0 : 2300);
   const scrollBehavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
   birthdayNoteScreen.scrollIntoView({ behavior: scrollBehavior, block: "start" });
 });
 
-backToCelebration.addEventListener("click", () => {
+function closeBirthdayNote() {
+  window.clearTimeout(noteRevealTimer);
+  letterTypingRun += 1;
+  window.clearTimeout(letterTypingTimer);
+  birthdayNoteScreen.classList.remove("is-opening");
   birthdayNoteScreen.classList.add("hidden");
   birthdayPage.classList.remove("hidden");
+}
+
+backToCelebration.addEventListener("click", () => {
+  closeBirthdayNote();
   const scrollBehavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
   birthdayPage.scrollIntoView({ behavior: scrollBehavior, block: "start" });
 });
 
 replayButton.addEventListener("click", () => {
+  closeBirthdayNote();
   celebrate();
   showToast("Wishing you another year full of magic! ✨");
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  const scrollBehavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+  birthdayPage.scrollIntoView({ behavior: scrollBehavior, block: "start" });
 });

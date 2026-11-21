@@ -872,3 +872,164 @@ footer { color: #b7cbe0; }
 @keyframes hintGlow {
   to { text-shadow: 0 0 12px #fff, 0 0 28px #7eafd9, 0 0 46px #4d81b2cc; }
 }
+
+/* The note click becomes a full-screen envelope-to-letter transition. */
+.note-envelope-transition {
+  position: fixed;
+  z-index: 30;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  background: radial-gradient(ellipse at center, #17395b 0%, #0b2542 58%, #07172b 100%);
+  perspective: 1000px;
+}
+.birthday-note-screen.is-opening .note-envelope-transition {
+  visibility: visible;
+  animation: noteSceneIn .4s ease-out both, noteSceneOut .4s ease-in 2.35s forwards;
+}
+.transition-envelope {
+  position: relative;
+  width: min(560px, 92vw);
+  height: clamp(300px, 46vh, 420px);
+  opacity: 0;
+  transform: translateY(18px) scale(.82);
+  filter: drop-shadow(0 24px 30px #020b16aa);
+  animation: transitionEnvelopeArrive .7s cubic-bezier(.2,.8,.2,1) .12s forwards;
+}
+.transition-envelope-back {
+  position: absolute;
+  z-index: 1;
+  inset: 24% 0 -14%;
+  border: 2px solid #d9b66f;
+  border-radius: 8px;
+  background: linear-gradient(120deg, #102943, #2a5076 48%, #0c253f);
+}
+.transition-letter {
+  position: absolute;
+  z-index: 2;
+  left: 10%;
+  right: 10%;
+  bottom: -14%;
+  height: clamp(205px, 32vh, 280px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid #d9b66f;
+  border-radius: 5px;
+  background: linear-gradient(145deg, #fffdf5, #efe4d2);
+  color: #17395b;
+  box-shadow: 0 4px 14px #020b1688;
+  font: clamp(48px, 8vw, 76px)/1 "Great Vibes", cursive;
+  transform: scale(.96);
+  animation: transitionLetterRise 1.65s cubic-bezier(.18,.78,.25,1) .82s forwards;
+}
+.transition-letter small {
+  color: #98733d;
+  font: 700 9px/1.5 "DM Sans", sans-serif;
+  letter-spacing: .2em;
+}
+.transition-envelope-pocket {
+  position: absolute;
+  z-index: 3;
+  inset: 24% 0 -14%;
+  border: 2px solid #d9b66f;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #294c70, #173553 55%, #102943);
+  clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%);
+}
+.transition-envelope-flap {
+  position: absolute;
+  z-index: 5;
+  left: 1px;
+  right: 1px;
+  top: 24%;
+  height: 44%;
+  border-top: 2px solid #f0d28f;
+  background: linear-gradient(155deg, #7fa4c7, #426a91 58%, #294c70);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  backface-visibility: hidden;
+  animation: transitionFlapOpen .85s cubic-bezier(.2,.8,.3,1) .58s forwards;
+}
+.transition-ribbon {
+  position: absolute;
+  z-index: 6;
+  display: block;
+  pointer-events: none;
+  background: linear-gradient(90deg, #9a7437, #f4d994 32%, #c79d53 65%, #f5dfa3);
+  box-shadow: inset 0 0 0 1px #fff0bd88, 0 1px 4px #07172b99;
+}
+.transition-ribbon-vertical { top: 62%; bottom: -14%; left: 45%; width: 10%; }
+.transition-ribbon-horizontal {
+  left: 0; right: 0; bottom: 14%; height: 18px;
+  background: linear-gradient(180deg, #f4d994, #b58b47 45%, #e9cd89);
+  border-block: 1px solid #ffedbd99;
+}
+.transition-envelope-seal {
+  position: absolute;
+  z-index: 7;
+  left: calc(50% - 18px);
+  top: 58%;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #f0d28f;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #e3c47d, #9b7135 78%);
+  color: #fff4d4;
+  font-size: 18px;
+  box-shadow: 0 0 18px #f0d28f77;
+  animation: transitionSealLift .32s ease-in .58s forwards;
+}
+@keyframes noteSceneIn { to { opacity: 1; } }
+@keyframes noteSceneOut { to { opacity: 0; visibility: hidden; } }
+@keyframes transitionEnvelopeArrive { to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes transitionLetterRise { to { transform: translateY(calc(-100% - 105px)) scale(1); } }
+@keyframes transitionFlapOpen { 45% { z-index: 2; } 100% { z-index: 2; transform: rotateX(180deg); } }
+@keyframes transitionSealLift { to { opacity: 0; transform: translateY(-12px) scale(.65); } }
+.type-char { opacity: 0; transition: opacity .12s ease; }
+.type-char.is-typed { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .note-envelope-transition { display: none; }
+  .type-char { opacity: 1; }
+}
+
+/* Handwritten letter styling and gift-wrapped envelope details. */
+.birthday-note-card #note-title {
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(52px, 9vw, 78px);
+  line-height: 1.15;
+}
+.birthday-note-card > p:not(.section-kicker):not(.always-smile):not(.smile-promise):not(.note-signoff) {
+  font-family: "Caveat", cursive;
+  font-size: clamp(22px, 2.7vw, 28px);
+  line-height: 1.48;
+}
+@media (max-width: 600px) {
+  .birthday-note-card > p:not(.section-kicker):not(.always-smile):not(.smile-promise):not(.note-signoff) {
+    font-size: 22px;
+  }
+  .transition-envelope { width: 90vw; height: clamp(280px, 42vh, 360px); }
+  .transition-letter { left: 8%; right: 8%; height: clamp(200px, 31vh, 250px); }
+}
+@media (max-height: 520px) {
+  .transition-envelope { height: min(280px, 68vh); }
+  .transition-letter { height: min(190px, 48vh); }
+}
+
+.hero-message {
+  text-shadow: 0 0 8px #fff, 0 0 18px #ffe28c, 0 0 34px #7bbbe9, 0 0 52px #4d81b2;
+  animation: greetingGlow 2.2s ease-in-out infinite alternate;
+}
+@keyframes greetingGlow {
+  to { text-shadow: 0 0 12px #fff, 0 0 24px #ffe28c, 0 0 44px #82c5f2, 0 0 64px #5a91c2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-message { animation: none; }
+}
