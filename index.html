@@ -138,8 +138,31 @@
         <p>May this year be your most beautiful one yet.</p>
         <button class="replay-button" id="replayButton" type="button">Celebrate again <span>↗</span></button>
       </section>
+      <section class="private-reply-invite" aria-label="Private thank-you note">
+        <span class="reply-note-deco reply-note-deco-one" aria-hidden="true">✨</span>
+        <span class="reply-note-deco reply-note-deco-two" aria-hidden="true">🪶</span>
+        <span class="reply-note-deco reply-note-deco-three" aria-hidden="true">⭐</span>
+        <button class="private-reply-open" id="openPrivateReply" type="button" aria-label="Write a private thank-you note for Kriti"><span aria-hidden="true">✍️</span> Write a note <span aria-hidden="true">✨</span></button>
+      </section>
       <footer><span>MADE WITH GOOD WISHES</span><span>✦</span><span>FOR RICHA</span></footer>
     </main>
+    <dialog class="private-reply-dialog" id="privateReplyDialog" aria-labelledby="privateReplyTitle">
+      <div class="private-reply-panel">
+        <button class="private-reply-close" id="closePrivateReply" type="button" aria-label="Close thank-you note form">×</button>
+        <div class="private-reply-star" aria-hidden="true">✦</div>
+        <h2 id="privateReplyTitle">A little note</h2>
+        <form id="privateReplyForm" action="https://formspree.io/f/meagrekp" method="POST">
+          <input type="hidden" name="_subject" value="A birthday thank-you note for Kriti">
+          <label for="replyName">Your name <span>(optional)</span></label>
+          <input id="replyName" name="name" type="text" maxlength="80" autocomplete="name" placeholder="Your name">
+          <label for="replyMessage">Your message</label>
+          <textarea id="replyMessage" name="message" rows="6" maxlength="3000" required></textarea>
+          <label class="reply-honeypot" aria-hidden="true">Leave this field empty<input name="_gotcha" type="text" tabindex="-1" autocomplete="off"></label>
+          <p class="private-reply-status" id="privateReplyStatus" role="status" aria-live="polite"></p>
+          <button class="private-reply-submit" id="privateReplySubmit" type="submit">Send my note <span aria-hidden="true">✦</span></button>
+        </form>
+      </div>
+    </dialog>
   </section>
 
   <div class="toast" id="toast" role="status" aria-live="polite">A little extra sparkle for your day ✨</div>

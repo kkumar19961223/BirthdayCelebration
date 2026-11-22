@@ -9,6 +9,12 @@ const toast = document.getElementById("toast");
 const fireworks = document.getElementById("fireworks");
 const birthdayMusic = document.getElementById("birthdayMusic");
 const giftRevealFlash = document.getElementById("giftRevealFlash");
+const openPrivateReply = document.getElementById("openPrivateReply");
+const closePrivateReply = document.getElementById("closePrivateReply");
+const privateReplyDialog = document.getElementById("privateReplyDialog");
+const privateReplyForm = document.getElementById("privateReplyForm");
+const privateReplyStatus = document.getElementById("privateReplyStatus");
+const privateReplySubmit = document.getElementById("privateReplySubmit");
 let resumeMusicOnReturn = false;
 let letterTypingTimer = 0;
 let letterTypingRun = 0;
@@ -215,4 +221,44 @@ replayButton.addEventListener("click", () => {
   showToast("Wishing you another year full of magic! ✨");
   const scrollBehavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
   birthdayPage.scrollIntoView({ behavior: scrollBehavior, block: "start" });
+});
+
+openPrivateReply.addEventListener("click", () => {
+  privateReplyStatus.textContent = "";
+  privateReplyStatus.classList.remove("is-error", "is-success");
+  privateReplyDialog.showModal();
+});
+
+closePrivateReply.addEventListener("click", () => privateReplyDialog.close());
+privateReplyDialog.addEventListener("click", (event) => {
+  if (event.target === privateReplyDialog) privateReplyDialog.close();
+});
+
+privateReplyForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  privateReplyStatus.textContent = "Sending your note…";
+  privateReplyStatus.classList.remove("is-error", "is-success");
+  privateReplySubmit.disabled = true;
+
+  try {
+    const response = await fetch(privateReplyForm.action, {
+      method: "POST",
+      body: new FormData(privateReplyForm),
+      headers: { Accept: "application/json" },
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      const details = Array.isArray(result.errors) ? result.errors.map((error) => error.message).join(" ") : "";
+      throw new Error(details || "Your note could not be sent. Please try again in a moment.");
+    }
+
+    privateReplyForm.reset();
+    privateReplyStatus.textContent = "Your thank-you note has been sent.";
+    privateReplyStatus.classList.add("is-success");
+  } catch (error) {
+    privateReplyStatus.textContent = error.message || "Connection problem. Please try again.";
+    privateReplyStatus.classList.add("is-error");
+  } finally {
+    privateReplySubmit.disabled = false;
+  }
 });
