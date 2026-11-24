@@ -2,6 +2,8 @@ const envelopeScreen = document.getElementById("envelopeScreen");
 const openEnvelope = document.getElementById("openEnvelope");
 const birthdayPage = document.getElementById("birthdayPage");
 const birthdayNoteScreen = document.getElementById("birthdayNoteScreen");
+const birthdayNotePrompt = document.getElementById("birthdayNotePrompt");
+const rocketReveal = document.getElementById("rocketReveal");
 const backToCelebration = document.getElementById("backToCelebration");
 const surpriseButton = document.getElementById("surpriseButton");
 const replayButton = document.getElementById("replayButton");
@@ -19,6 +21,7 @@ let resumeMusicOnReturn = false;
 let letterTypingTimer = 0;
 let letterTypingRun = 0;
 let noteRevealTimer = 0;
+let birthdayNotePromptTimer = 0;
 
 function pauseMusicWhileAway() {
   if (birthdayMusic.paused) return;
@@ -142,6 +145,23 @@ function celebrate() {
   launchFlowerPetals();
 }
 
+function revealBirthdayPage() {
+  birthdayPage.classList.remove("hidden");
+  birthdayPage.classList.add("visible");
+  const hero = birthdayPage.querySelector(".hero");
+  hero.classList.remove("cinematic-arriving");
+  void hero.offsetWidth;
+  hero.classList.add("cinematic-arriving");
+  window.scrollTo(0, 0);
+
+  window.clearTimeout(birthdayNotePromptTimer);
+  birthdayNotePromptTimer = window.setTimeout(() => {
+    if (!birthdayNoteScreen.classList.contains("hidden")) return;
+    birthdayNotePrompt.hidden = false;
+    requestAnimationFrame(() => birthdayNotePrompt.classList.add("visible"));
+  }, 3800);
+}
+
 function typeBirthdayLetter() {
   const noteCard = document.querySelector(".birthday-note-card");
   const title = document.getElementById("note-title");
@@ -195,23 +215,49 @@ function typeBirthdayLetter() {
 function openGift() {
   if (openEnvelope.classList.contains("open")) return;
   openEnvelope.classList.add("open");
-  giftRevealFlash.classList.remove("active");
-  void giftRevealFlash.offsetWidth;
-  giftRevealFlash.classList.add("active");
   // Start audio directly from the user's gesture for mobile browser autoplay policies.
   startBirthdayMusic().catch(() => {});
-  celebrate();
-  window.setTimeout(celebrate, 900);
-  window.setTimeout(celebrate, 1900);
-  window.setTimeout(() => {
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     envelopeScreen.classList.add("leaving");
     window.setTimeout(() => {
       envelopeScreen.style.display = "none";
-      birthdayPage.classList.remove("hidden");
-      birthdayPage.classList.add("visible");
-      window.scrollTo(0, 0);
+      giftRevealFlash.classList.remove("active");
+      void giftRevealFlash.offsetWidth;
+      giftRevealFlash.classList.add("active");
+      celebrate();
+      revealBirthdayPage();
     }, 650);
-  }, 1050);
+    return;
+  }
+
+  window.setTimeout(() => envelopeScreen.classList.add("leaving"), 750);
+  window.setTimeout(() => {
+    envelopeScreen.style.display = "none";
+    window.scrollTo(0, 0);
+    rocketReveal.hidden = false;
+    rocketReveal.classList.remove("launching", "exploding", "fade-out");
+    void rocketReveal.offsetWidth;
+    rocketReveal.classList.add("launching");
+
+    window.setTimeout(() => {
+      rocketReveal.classList.add("exploding");
+      giftRevealFlash.classList.remove("active");
+      void giftRevealFlash.offsetWidth;
+      giftRevealFlash.classList.add("active");
+      celebrate();
+    }, 3000);
+
+    window.setTimeout(() => {
+      rocketReveal.classList.add("fade-out");
+      revealBirthdayPage();
+    }, 3900);
+
+    window.setTimeout(() => {
+      rocketReveal.hidden = true;
+      rocketReveal.classList.remove("launching", "exploding", "fade-out");
+    }, 4900);
+  }, 1500);
 }
 
 openEnvelope.addEventListener("pointerdown", () => {
@@ -220,6 +266,9 @@ openEnvelope.addEventListener("pointerdown", () => {
 openEnvelope.addEventListener("click", openGift);
 
 surpriseButton.addEventListener("click", () => {
+  window.clearTimeout(birthdayNotePromptTimer);
+  birthdayNotePrompt.hidden = true;
+  birthdayNotePrompt.classList.remove("visible");
   celebrate();
   birthdayNoteScreen.classList.remove("hidden");
   birthdayNoteScreen.classList.remove("is-opening");
@@ -231,8 +280,8 @@ surpriseButton.addEventListener("click", () => {
     typeBirthdayLetter();
     noteRevealTimer = window.setTimeout(() => {
       birthdayNoteScreen.classList.remove("is-opening");
-    }, reduceMotion ? 0 : 500);
-  }, reduceMotion ? 0 : 2300);
+    }, reduceMotion ? 0 : 650);
+  }, reduceMotion ? 0 : 3550);
   const scrollBehavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
   birthdayNoteScreen.scrollIntoView({ behavior: scrollBehavior, block: "start" });
 });

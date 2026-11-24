@@ -913,7 +913,7 @@ footer { color: #b7cbe0; }
 }
 .birthday-note-screen.is-opening .note-envelope-transition {
   visibility: visible;
-  animation: noteSceneIn .4s ease-out both, noteSceneOut .4s ease-in 2.35s forwards;
+  animation: noteSceneIn .55s ease-out both, noteSceneOut .55s ease-in 3.5s forwards;
 }
 .transition-envelope {
   position: relative;
@@ -922,7 +922,7 @@ footer { color: #b7cbe0; }
   opacity: 0;
   transform: translateY(18px) scale(.82);
   filter: drop-shadow(0 24px 30px #020b16aa);
-  animation: transitionEnvelopeArrive .7s cubic-bezier(.2,.8,.2,1) .12s forwards;
+  animation: transitionEnvelopeArrive .95s cubic-bezier(.2,.8,.2,1) .18s forwards;
 }
 .transition-envelope-back {
   position: absolute;
@@ -951,7 +951,7 @@ footer { color: #b7cbe0; }
   box-shadow: 0 4px 14px #020b1688;
   font: clamp(48px, 8vw, 76px)/1 "Great Vibes", cursive;
   transform: scale(.96);
-  animation: transitionLetterRise 1.65s cubic-bezier(.18,.78,.25,1) .82s forwards;
+  animation: transitionLetterRise 2.35s cubic-bezier(.18,.78,.25,1) .95s forwards;
 }
 .transition-letter small {
   color: #98733d;
@@ -979,7 +979,7 @@ footer { color: #b7cbe0; }
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   transform-origin: top center;
   backface-visibility: hidden;
-  animation: transitionFlapOpen .85s cubic-bezier(.2,.8,.3,1) .58s forwards;
+  animation: transitionFlapOpen 1.15s cubic-bezier(.2,.8,.3,1) .78s forwards;
 }
 .transition-ribbon {
   position: absolute;
@@ -1010,7 +1010,7 @@ footer { color: #b7cbe0; }
   color: #fff4d4;
   font-size: 18px;
   box-shadow: 0 0 18px #f0d28f77;
-  animation: transitionSealLift .32s ease-in .58s forwards;
+  animation: transitionSealLift .45s ease-in .78s forwards;
 }
 @keyframes noteSceneIn { to { opacity: 1; } }
 @keyframes noteSceneOut { to { opacity: 0; visibility: hidden; } }
@@ -1186,4 +1186,183 @@ footer { color: #b7cbe0; }
 @media (prefers-reduced-motion: reduce) {
   .private-reply-open, .private-reply-submit { transition: none; }
   .private-reply-invite, .private-reply-open, .reply-note-deco { animation: none; }
+}
+
+/* Cinematic envelope reveal: rocket launch, burst, then the birthday wish. */
+.rocket-reveal {
+  position: fixed;
+  z-index: 30;
+  inset: 0;
+  overflow: hidden;
+  background: #07172b;
+  opacity: 1;
+  transition: opacity .9s ease;
+}
+.rocket-reveal[hidden] { display: none !important; }
+.rocket-reveal.fade-out { opacity: 0; }
+.rocket-flight {
+  position: absolute;
+  left: 50%;
+  bottom: -25vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transform: translateX(-50%) scale(.62);
+  transform-origin: center;
+}
+.skyshot-core {
+  position: relative;
+  z-index: 1;
+  width: 15px;
+  height: 30px;
+  border-radius: 60% 60% 48% 48%;
+  background: radial-gradient(ellipse at 48% 34%, #fff 0 12%, #fff3b4 22%, #ffd166 44%, #ff8139 72%, #f04466 100%);
+  box-shadow: 0 0 12px #fff4bc, 0 0 30px #ffb241, 0 0 52px #ff663d99;
+}
+.rocket-trail {
+  width: 19px;
+  height: clamp(210px, 40vh, 360px);
+  margin-top: -2px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #fff8c7 0%, #ffe27a 12%, #ffab3d 35%, #ff663b 64%, #f04466 82%, transparent 100%);
+  filter: blur(7px);
+  animation: rocketFlame .14s ease-in-out infinite alternate;
+}
+.rocket-reveal.launching .rocket-flight { animation: rocketLaunch 3s cubic-bezier(.42,0,.72,.48) forwards; }
+.rocket-reveal.exploding .rocket-flight { opacity: 0; }
+.rocket-explosion {
+  position: absolute;
+  left: 50%;
+  top: 16%;
+  width: min(42vw, 310px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.15);
+  background: radial-gradient(circle, #fffde7 0 4%, #ffe278 7% 12%, #ff9b45 20%, #f05272 34%, transparent 68%);
+}
+.rocket-explosion.blast-one { left: 25%; top: 17%; width: min(38vw, 300px); }
+.rocket-explosion.blast-two { --blast-delay: .16s; left: 75%; top: 14%; width: min(34vw, 270px); }
+.rocket-explosion.blast-three { --blast-delay: .32s; left: 49%; top: 7%; width: min(43vw, 320px); }
+.rocket-explosion.blast-four { --blast-delay: .48s; left: 53%; top: 30%; width: min(30vw, 230px); }
+.rocket-explosion::before {
+  content: "";
+  position: absolute;
+  inset: 5%;
+  border-radius: 50%;
+  background: repeating-conic-gradient(from 0deg, #fff8d5 0deg 2deg, transparent 2deg 15deg);
+  mask-image: radial-gradient(circle, transparent 0 20%, #000 28% 48%, transparent 72%);
+}
+.rocket-bang { z-index: 1; color: #fff8d6; font-size: clamp(34px, 8vw, 66px); filter: drop-shadow(0 0 22px #ffe381); }
+.rocket-explosion i { position: absolute; color: #fff5c3; font-size: clamp(25px, 6vw, 46px); font-style: normal; text-shadow: 0 0 18px #ffc857; }
+.rocket-explosion i:nth-of-type(1) { top: 2%; left: 48%; }
+.rocket-explosion i:nth-of-type(2) { top: 17%; right: 15%; }
+.rocket-explosion i:nth-of-type(3) { top: 46%; right: 1%; }
+.rocket-explosion i:nth-of-type(4) { bottom: 17%; right: 14%; }
+.rocket-explosion i:nth-of-type(5) { bottom: 1%; left: 48%; }
+.rocket-explosion i:nth-of-type(6) { bottom: 17%; left: 14%; }
+.rocket-explosion i:nth-of-type(7) { top: 46%; left: 1%; }
+.rocket-explosion i:nth-of-type(8) { top: 17%; left: 15%; }
+.rocket-reveal.exploding .rocket-explosion { animation: rocketBurst .95s cubic-bezier(.12,.72,.27,1) var(--blast-delay, 0s) forwards; }
+.rocket-reveal.exploding .rocket-explosion i { animation: rocketSpark .9s ease-out var(--blast-delay, 0s) both; }
+.rocket-reveal.exploding .rocket-explosion i:nth-of-type(even) { animation-delay: calc(var(--blast-delay, 0s) + .08s); }
+@keyframes rocketLaunch {
+  0% { opacity: 0; bottom: -25vh; transform: translateX(-50%) scale(.62); }
+  10% { opacity: 1; }
+  100% { opacity: 1; bottom: 104vh; transform: translateX(-50%) scale(1.32); }
+}
+@keyframes rocketFlame { to { transform: scaleX(.72) scaleY(1.18); opacity: .72; } }
+@keyframes rocketBurst {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.12); }
+  24% { opacity: 1; transform: translate(-50%, -50%) scale(1.02); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(2.25); }
+}
+@keyframes rocketSpark { 0% { opacity: 0; scale: .2; } 28% { opacity: 1; } 100% { opacity: 0; scale: 1.8; } }
+
+.hero.cinematic-arriving .cake-wrap { animation: heroItemReveal .75s ease-out .18s both; }
+.hero.cinematic-arriving .pre-title { animation: heroItemReveal .55s ease-out .42s both; }
+.hero.cinematic-arriving .name-flip {
+  display: inline-block;
+  backface-visibility: hidden;
+  transform-origin: center;
+  animation: nameLetterFlip 2.15s cubic-bezier(.16,.84,.23,1) both;
+  animation-delay: calc(var(--letter-order, 0) * .4s + .55s);
+}
+.hero.cinematic-arriving .name-flip:nth-child(1) { --letter-order: 0; }
+.hero.cinematic-arriving .name-flip:nth-child(2) { --letter-order: 1; }
+.hero.cinematic-arriving .name-flip:nth-child(3) { --letter-order: 2; }
+.hero.cinematic-arriving .name-flip:nth-child(4) { --letter-order: 3; }
+.hero.cinematic-arriving .name-flip:nth-child(5) { --letter-order: 4; }
+.hero.cinematic-arriving h1 { animation: nameGlow 2.8s ease-in-out 4.7s infinite alternate; }
+.hero h1 .name-flip {
+  color: #f6d98d;
+  background: linear-gradient(180deg, #fff9e7 0%, #f6d98d 48%, #c88d37 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero h1 .name-period { color: #ffd27c; }
+.hero.cinematic-arriving .birthday-rule { animation: heroItemReveal .55s ease-out 1.35s both; }
+.hero.cinematic-arriving .hero-message { animation: heroItemReveal .65s ease-out 1.48s both; }
+.hero.cinematic-arriving .hero-subtitle { animation: heroItemReveal .65s ease-out 1.72s both; }
+.hero.cinematic-arriving .surprise-button { animation: heroItemReveal .65s ease-out 1.95s both, buttonGlow 2.2s ease-in-out 2.6s infinite alternate; }
+@keyframes heroItemReveal { from { opacity: 0; translate: 0 22px; filter: blur(5px); } to { opacity: 1; translate: 0 0; filter: blur(0); } }
+@keyframes nameLetterFlip {
+  0% { opacity: 0; filter: drop-shadow(0 0 0 #f6d98d00); transform: perspective(850px) rotateY(180deg) rotateX(24deg) translateY(34px) scale(.48); }
+  42% { opacity: 0; transform: perspective(850px) rotateY(96deg) rotateX(8deg) translateY(12px) scale(.82); }
+  54% { opacity: 1; filter: drop-shadow(0 0 26px #fff2bd) drop-shadow(0 0 42px #e8b85f); transform: perspective(850px) rotateY(52deg) rotateX(-10deg) translateY(-15px) scale(1.22); }
+  72% { opacity: 1; transform: perspective(850px) rotateY(-12deg) rotateX(5deg) translateY(5px) scale(.96); }
+  100% { opacity: 1; filter: drop-shadow(0 0 10px #f6d98d99); transform: perspective(850px) rotateY(0) rotateX(0) translateY(0) scale(1); }
+}
+@keyframes nameGlow {
+  from { text-shadow: 0 0 18px #f6d98d44, 0 0 34px #80b6df33; }
+  to { text-shadow: 0 0 28px #fff0bd99, 0 0 52px #e7b95f99, 0 0 76px #80b6df66; }
+}
+.birthday-note-prompt {
+  position: relative;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: fit-content;
+  max-width: min(100%, 500px);
+  margin: 16px auto 2px;
+  padding: 12px 18px;
+  border: 1px solid #f0d28f;
+  border-radius: 14px;
+  background: linear-gradient(120deg, #183858f5, #264d70f5);
+  color: #fff2c7;
+  font-size: clamp(11px, 2.6vw, 14px);
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-align: center;
+  box-shadow: 0 0 20px #ffd16666, 0 0 40px #79addd55;
+}
+.birthday-note-prompt[hidden] { display: none !important; }
+.birthday-note-prompt::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border: 8px solid transparent;
+  border-top-color: #f0d28f;
+  transform: translateX(-50%);
+}
+.birthday-note-prompt.visible { animation: notePromptPop .65s cubic-bezier(.18,.8,.25,1) both, notePromptGlow 1.6s ease-in-out .65s infinite alternate; }
+@keyframes notePromptPop { from { opacity: 0; translate: 0 16px; scale: .8; } to { opacity: 1; translate: 0 0; scale: 1; } }
+@keyframes notePromptGlow { to { box-shadow: 0 0 28px #ffe28caa, 0 0 54px #79addd88; } }
+@media (max-width: 600px) {
+  .birthday-note-prompt { gap: 6px; padding: 11px 12px; letter-spacing: .025em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rocket-reveal, .rocket-reveal *, .hero.cinematic-arriving .cake-wrap,
+  .hero.cinematic-arriving .pre-title, .hero.cinematic-arriving .name-flip,
+  .hero.cinematic-arriving h1,
+  .hero.cinematic-arriving .birthday-rule, .hero.cinematic-arriving .hero-message,
+  .hero.cinematic-arriving .hero-subtitle, .hero.cinematic-arriving .surprise-button,
+  .birthday-note-prompt.visible { animation: none !important; transition: none !important; }
 }
