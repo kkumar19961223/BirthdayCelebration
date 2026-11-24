@@ -55,7 +55,7 @@ function showToast(message) {
 }
 
 function launchConfetti() {
-  const colors = ["#f0a9c0", "#d9a6c5", "#f4cf8c", "#fff8f4", "#c99ab7", "#e88da9"];
+  const colors = ["#f0a9c0", "#d9a6c5", "#f4cf8c", "#fff8f4", "#c99ab7", "#e88da9", "#80d8ff", "#c9f3cf"];
   const amount = window.innerWidth < 600 ? 24 : window.innerWidth < 900 ? 60 : 130;
   for (let i = 0; i < amount; i++) {
     const piece = document.createElement("span");
@@ -80,8 +80,22 @@ function launchFireworks() {
 
   for (let burst = 0; burst < burstCount; burst++) {
     window.setTimeout(() => {
-      const x = 10 + Math.random() * 80;
-      const y = 7 + Math.random() * 30;
+      const edge = burst % 4;
+      let x;
+      let y;
+      if (edge === 0) {
+        x = 12;
+        y = 24 + Math.random() * 52;
+      } else if (edge === 1) {
+        x = 88;
+        y = 24 + Math.random() * 52;
+      } else if (edge === 2) {
+        x = 22 + Math.random() * 56;
+        y = 86;
+      } else {
+        x = 22 + Math.random() * 56;
+        y = 10;
+      }
       for (let i = 0; i < particlesPerBurst; i++) {
         const dot = document.createElement("i");
         const angle = (Math.PI * 2 * i) / particlesPerBurst;
@@ -100,9 +114,32 @@ function launchFireworks() {
   }
 }
 
+function launchFlowerPetals() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const flowers = ["🌸", "🌺", "🌼", "🌷", "🌹", "🪷", "🌻", "✨", "⭐", "💛"];
+  const mobile = window.innerWidth < 700;
+  const amount = mobile ? 9 : 20;
+
+  for (let i = 0; i < amount; i++) {
+    const petal = document.createElement("span");
+    petal.className = "flower-petal";
+    petal.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+    petal.style.left = `${Math.random() * 96 + 2}vw`;
+    petal.style.fontSize = `${16 + Math.random() * (mobile ? 9 : 16)}px`;
+    petal.style.setProperty("--petal-drift", `${Math.random() * (mobile ? 110 : 220) - (mobile ? 55 : 110)}px`);
+    petal.style.setProperty("--petal-spin", `${Math.random() * 540 - 270}deg`);
+    petal.style.animationDuration = `${4.5 + Math.random() * 2.5}s`;
+    petal.style.animationDelay = `${Math.random() * .65}s`;
+    document.body.appendChild(petal);
+    window.setTimeout(() => petal.remove(), 7600);
+  }
+}
+
 function celebrate() {
   launchConfetti();
   launchFireworks();
+  launchFlowerPetals();
 }
 
 function typeBirthdayLetter() {
