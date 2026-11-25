@@ -592,26 +592,19 @@ button, .surprise-button { touch-action: manipulation; }
   .diya-row span:nth-child(n + 4) { display: none; }
   .note-stars span:nth-child(n + 3) { display: none; }
   .diya-row { bottom: max(5px, env(safe-area-inset-bottom)); }
-  /* Keep the phone layout visually steady; reserve motion for the candle flames and reveal transition. */
-  .party-balloons span,
-  .bottom-balloons span,
-  .hang,
-  .stars,
+  /* Keep the same ambient animations on phones, with fewer elements and gentler timing. */
+  .party-balloons span { animation-duration: 24s; }
+  .bottom-balloons span { animation-duration: 5.5s; }
+  .hang { animation-duration: 6s; }
+  .stars { animation-duration: 5s; }
   .night-sparkles span,
-  .smiley-stars span,
-  .diya-row span,
-  .tap-hint,
-  .cake-bear,
-  .smile-deco,
-  .closing-smiley,
-  .always-smile { animation: none !important; }
-  .party-balloons span { bottom: auto; top: 14%; transform: none; opacity: .42; }
-  .party-balloons span:nth-child(even) { top: 66%; }
-  .bottom-balloons span,
-  .hang,
-  .night-sparkles span,
-  .smiley-stars span,
-  .diya-row span { transform: none; translate: none; }
+  .smiley-stars span { animation-duration: 3.2s; }
+  .diya-row span { animation-duration: 1.4s; }
+  .tap-hint { animation-duration: 2.4s; }
+  .cake-bear { animation-duration: 3s; }
+  .smile-deco { animation-duration: 2s; }
+  .closing-smiley { animation-duration: 2.8s; }
+  .always-smile { animation-duration: 2.4s; }
   .tap-hint { text-shadow: 0 0 8px #ffe29c, 0 0 20px #d89affcc; }
   .envelope-screen {
     padding: max(28px, calc(28px + env(safe-area-inset-top))) 16px
