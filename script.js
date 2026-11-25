@@ -270,6 +270,7 @@ surpriseButton.addEventListener("click", () => {
   birthdayNotePrompt.hidden = true;
   birthdayNotePrompt.classList.remove("visible");
   celebrate();
+  birthdayPage.classList.add("hidden");
   birthdayNoteScreen.classList.remove("hidden");
   birthdayNoteScreen.classList.remove("is-opening");
   void birthdayNoteScreen.offsetWidth;
